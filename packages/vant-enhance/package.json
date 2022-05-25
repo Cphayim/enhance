@@ -1,0 +1,36 @@
+{
+  "name": "@cphayim/vant-enhance",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "Cphayim <i@cphayim.me>",
+  "version": "0.0.0",
+  "main": "./dist/vant-enhance.cjs.js",
+  "module": "./dist/vant-enhance.es.mjs",
+  "browser": "./dist/vant-enhance.umd.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vant-enhance.es.mjs",
+      "require": "./dist/vant-enhance.cjs.js"
+    },
+    "./style": "./dist/vant-enhance.css"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "dev": "vite build --config ./vite.config.ts --watch",
+    "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts"
+  },
+  "peerDependencies": {
+    "vant": "^3.4.0",
+    "vue": "^3.2.0"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^8.5.0",
+    "dayjs": "^1.11.2",
+    "vant": "^3.4.9",
+    "vue": "^3.2.33"
+  }
+}

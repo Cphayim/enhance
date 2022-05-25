@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "✨ @cphayim/enhance-monorepo",
+      "path": "."
+    },
+    {
+      "name": "📦 @cphayim/shared",
+      "path": "packages/shared"
+    },
+    {
+      "name": "📦 @cphayim/vant-enhance",
+      "path": "packages/vant-enhance"
+    }
+  ],
+  "settings": {}
+}

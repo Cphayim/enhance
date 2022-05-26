@@ -9,12 +9,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
-    "types": ["unplugin-vue-define-options"]
+    "removeComments": false
   }
-  // "include": [
-  //   "packages/**/*.ts",
-  //   "packages/**/*.d.ts",
-  //   "packages/**/*.tsx",
-  //   "packages/**/*.vue"
-  // ]
 }

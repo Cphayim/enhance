@@ -11,6 +11,10 @@
     {
       "name": "📦 @cphayim/vant-enhance",
       "path": "packages/vant-enhance"
+    },
+    {
+      "name": "📦 @cphayim/element-plus-enhance",
+      "path": "packages/element-plus-enhance"
     }
   ],
   "settings": {}

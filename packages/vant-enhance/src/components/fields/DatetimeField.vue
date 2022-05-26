@@ -81,7 +81,7 @@ const handleFieldClick = () => {
   <van-cell-group>
     <!-- 选择器 input 始终为 readonly，props.readonly 用于控制 is-link -->
     <van-field
-      :label="title"
+      :label="label"
       :name="name"
       :modelValue="_datetimeText"
       :disabled="disabled"
@@ -102,7 +102,7 @@ const handleFieldClick = () => {
     >
       <van-datetime-picker
         :type="datetimeType"
-        :title="title"
+        :title="label"
         v-model="_currentDatetime"
         :min-date="minDate"
         :max-date="maxDate"

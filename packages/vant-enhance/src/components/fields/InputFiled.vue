@@ -30,7 +30,7 @@ const handleFieldClick = () => {
 <template>
   <van-cell-group>
     <van-field
-      :label="title"
+      :label="label"
       :name="name"
       v-model="_value"
       :readonly="readonly"

@@ -10,7 +10,7 @@ const info = ref({
 <template>
   <div>
     <ve-input-field
-      title="姓名"
+      label="姓名"
       name="name"
       v-model:value="info.name"
       :rules="[{ required: true, message: '请输入姓名' }]"

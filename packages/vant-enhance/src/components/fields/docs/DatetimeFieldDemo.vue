@@ -11,7 +11,7 @@ const info = ref({
 <template>
   <div>
     <ve-datetime-field
-      title="日期"
+      label="日期"
       name="date"
       v-model:value="info.date"
       datetime-type="date"
@@ -19,7 +19,7 @@ const info = ref({
       :rules="[{ required: true, message: '请选择' }]"
     />
     <ve-datetime-field
-      title="时间"
+      label="时间"
       name="time"
       v-model:value="info.time"
       datetime-type="time"

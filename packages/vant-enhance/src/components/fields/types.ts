@@ -27,7 +27,7 @@ export type FieldProps<F = string> = {
   /**
    * 左侧标题
    */
-  title: string
+  label: string
   /**
    * 字段名
    */

@@ -73,21 +73,21 @@ const areaOptions: FieldOption[] = [
 <template>
   <div>
     <ve-select-field
-      title="车型"
+      label="车型"
       name="carModelId"
       v-model:value="info.carModelId"
       :options="catModelOptions"
       :rules="[{ required: true, message: '请选择车型' }]"
     />
     <ve-select-field
-      title="食物"
+      label="食物"
       name="foodIds"
       v-model:value="info.foodIds"
       :options="foodOptions"
       :rules="[{ required: true, message: '请选择' }]"
     />
     <ve-select-field
-      title="地区"
+      label="地区"
       name="areaIds"
       v-model:value="info.areaIds"
       :options="areaOptions"

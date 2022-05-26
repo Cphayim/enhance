@@ -115,7 +115,7 @@ const handleFieldClick = () => {
   <van-cell-group>
     <!-- 选择器 input 始终为 readonly，props.readonly 用于控制 is-link -->
     <van-field
-      :label="title"
+      :label="label"
       :name="name"
       :modelValue="_selectLabel"
       :disabled="disabled"
@@ -135,7 +135,7 @@ const handleFieldClick = () => {
       safe-area-inset-bottom
     >
       <van-picker
-        :title="title"
+        :title="label"
         :columns="options"
         @confirm="handleSelectConfirm"
         @cancel="showPicker = false"

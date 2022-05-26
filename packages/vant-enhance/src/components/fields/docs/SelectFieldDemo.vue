@@ -10,61 +10,61 @@ const info = ref({
 })
 
 const catModelOptions: FieldOption[] = [
-  { text: '轿车', value: 1 },
-  { text: 'SUV', value: 2 },
-  { text: '跑车', value: 3 },
-  { text: '货车', value: 4 },
+  { label: '轿车', value: 1 },
+  { label: 'SUV', value: 2 },
+  { label: '跑车', value: 3 },
+  { label: '货车', value: 4 },
 ]
 const foodOptions: FieldOption[] = [
   {
-    text: '水果',
+    label: '水果',
     values: [
-      { text: '苹果', value: 11 },
-      { text: '香蕉', value: 12 },
-      { text: '西瓜', value: 13 },
+      { label: '苹果', value: 11 },
+      { label: '香蕉', value: 12 },
+      { label: '西瓜', value: 13 },
     ],
   },
   {
-    text: '蔬菜',
+    label: '蔬菜',
     values: [
-      { text: '黄瓜', value: 21 },
-      { text: '西红柿', value: 22 },
-      { text: '茄子', value: 23 },
+      { label: '黄瓜', value: 21 },
+      { label: '西红柿', value: 22 },
+      { label: '茄子', value: 23 },
     ],
   },
   {
-    text: '肉类',
+    label: '肉类',
     values: [
-      { text: '牛肉', value: 31 },
-      { text: '猪肉', value: 32 },
-      { text: '鸡肉', value: 33 },
+      { label: '牛肉', value: 31 },
+      { label: '猪肉', value: 32 },
+      { label: '鸡肉', value: 33 },
     ],
   },
 ]
 
 const areaOptions: FieldOption[] = [
   {
-    text: '福建',
+    label: '福建',
     value: 1,
     children: [
-      { text: '福州', value: 11 },
-      { text: '厦门', value: 12 },
+      { label: '福州', value: 11 },
+      { label: '厦门', value: 12 },
     ],
   },
   {
-    text: '浙江',
+    label: '浙江',
     value: 2,
     children: [
-      { text: '杭州', value: 21 },
-      { text: '温州', value: 22 },
+      { label: '杭州', value: 21 },
+      { label: '温州', value: 22 },
     ],
   },
   {
-    text: '江苏',
+    label: '江苏',
     value: 3,
     children: [
-      { text: '苏州', value: 31 },
-      { text: '南京', value: 32 },
+      { label: '苏州', value: 31 },
+      { label: '南京', value: 32 },
     ],
   },
 ]
@@ -74,21 +74,21 @@ const areaOptions: FieldOption[] = [
   <div>
     <ve-select-field
       title="车型"
-      fieldName="carModelId"
+      name="carModelId"
       v-model:value="info.carModelId"
       :options="catModelOptions"
       :rules="[{ required: true, message: '请选择车型' }]"
     />
     <ve-select-field
       title="食物"
-      fieldName="foodIds"
+      name="foodIds"
       v-model:value="info.foodIds"
       :options="foodOptions"
       :rules="[{ required: true, message: '请选择' }]"
     />
     <ve-select-field
       title="地区"
-      fieldName="areaIds"
+      name="areaIds"
       v-model:value="info.areaIds"
       :options="areaOptions"
       :rules="[{ required: true, message: '请选择' }]"

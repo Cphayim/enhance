@@ -67,25 +67,25 @@ const _selectIndex = computed(() => {
 })
 
 // 输入框显示的值
-const _selectText = computed(() => getSelectText())
+const _selectLabel = computed(() => getSelectLabel())
 // 获取当前选择的文本
-function getSelectText() {
-  if (isNone(_selected.value)) return getSelectInitialText()
+function getSelectLabel() {
+  if (isNone(_selected.value)) return getSelectInitialLabel()
   if (Array.isArray(_selected.value)) {
-    return _selected.value.map((option) => option.text).join(', ')
+    return _selected.value.map((option) => option.label).join(', ')
   } else {
-    return _selected.value.text
+    return _selected.value.label
   }
 }
 // 获取初始选择文本
-function getSelectInitialText() {
+function getSelectInitialLabel() {
   if (isNone(props.value)) return ''
   if (Array.isArray(props.value)) {
     return props.value
-      .map((value) => optionMap.value.get(value)?.text)
+      .map((value) => optionMap.value.get(value)?.label)
       .join(', ')
   } else {
-    return optionMap.value.get(props.value)?.text
+    return optionMap.value.get(props.value)?.label
   }
 }
 
@@ -111,8 +111,8 @@ const handleFieldClick = () => {
     <!-- 选择器 input 始终为 readonly，props.readonly 用于控制 is-link -->
     <van-field
       :label="title"
-      :name="fieldName"
-      :modelValue="_selectText"
+      :name="name"
+      :modelValue="_selectLabel"
       :disabled="disabled"
       :placeholder="placeholder || '请选择'"
       :rules="rules"

@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/shared/*": ["../shared/*"]
-    }
+    },
+    "types": ["unplugin-vue-define-options"]
   },
   "include": ["src/**/*", "../shared/**/*"]
 }

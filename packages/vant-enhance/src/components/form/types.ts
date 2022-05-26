@@ -5,17 +5,20 @@ import { type FieldProps } from '../fields'
  */
 export type FormItemType = 'input' | 'select' | 'datetime'
 
-export type FormItemProps = FieldProps & {
+export type FormItemProps<F = string> = {
   /**
    * 表单项类型
    */
   type: FormItemType
-}
+} & FieldProps<F>
 
 export type FormProps = {
   /**
    * 表单项
    */
   items: any[] // FormItemProps
+  /**
+   * 表单键值
+   */
   values: Record<string, any>
 }

@@ -44,14 +44,17 @@ const _datetimeText = computed(() => {
 const _currentDatetime = ref<string | Date>(
   props.datetimeType === 'time'
     ? (props.value as string)
-    : dayjs((props.value as string) /* 空串会出现 invalid date */ || undefined).toDate()
+    : dayjs(
+        (props.value as string) /* 空串会出现 invalid date */ || undefined,
+      ).toDate(),
 )
 
 const handleDatetimeConfirm = (value: string | Date) => {
   // 这里有两种情况
   // 如果 datetimeType 是 'time'，传递过来的是 '12:00' 这样的字符串
   // 否则是一个 Date 对象
-  const fValue = value instanceof Date ? dayjs(value).format(props.datetimeFormat) : value
+  const fValue =
+    value instanceof Date ? dayjs(value).format(props.datetimeFormat) : value
   emit('update:value', fValue)
   emit('change:datetime', value)
   showPicker.value = false
@@ -79,7 +82,7 @@ const handleFieldClick = () => {
     <!-- 选择器 input 始终为 readonly，props.readonly 用于控制 is-link -->
     <van-field
       :label="title"
-      :name="fieldName"
+      :name="name"
       :modelValue="_datetimeText"
       :disabled="disabled"
       :placeholder="placeholder || '请选择'"

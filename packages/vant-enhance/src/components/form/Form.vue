@@ -16,18 +16,20 @@ const emit = defineEmits<{
 
 const formRef = ref<FormInstance>()
 
-const handleValueChange = (fieldName: string, value: any) => {
+const handleValueChange = (name: string, value: any) => {
   emit('update:values', {
     ...props.values,
-    [fieldName]: value,
+    [name]: value,
   })
 }
 
-const validate: (name?: string | string[]) => Promise<void> = async () => {
+const validate = async (name?: string | string[]) => {
   if (!formRef.value) return
-  return formRef.value.validate()
+  return formRef.value.validate(name)
 }
+
 const getValues = () => props.values
+
 defineExpose({
   validate,
   getValues,
@@ -36,15 +38,15 @@ defineExpose({
 
 <template>
   <van-form ref="formRef" input-align="right" error-message-align="right">
-    <template v-for="field in items" :key="field.fieldName">
+    <template v-for="field in items" :key="field.name">
       <FormItem
         v-bind="field"
-        :value="values[field.fieldName]"
-        @update:value="(value) => handleValueChange(field.fieldName, value)"
+        :value="values[field.name]"
+        @update:value="(value) => handleValueChange(field.name, value)"
       >
         <!-- 将 FieldItem 的插槽作用域再传出去 -->
         <template #default="itemSlotScope">
-          <slot :name="field.fieldName" v-bind="itemSlotScope" />
+          <slot :name="field.name" v-bind="itemSlotScope" />
         </template>
       </FormItem>
     </template>

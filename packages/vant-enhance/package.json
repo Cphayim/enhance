@@ -1,14 +1,14 @@
 {
   "name": "@cphayim/vant-enhance",
-  "description": "",
+  "version": "0.1.4",
+  "description": "vant components enhanced",
   "keywords": [],
-  "license": "ISC",
   "author": "Cphayim <i@cphayim.me>",
-  "version": "0.0.0",
+  "license": "ISC",
   "main": "./dist/vant-enhance.cjs.js",
   "module": "./dist/vant-enhance.es.mjs",
   "browser": "./dist/vant-enhance.umd.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/vant-enhance.d.ts",
   "exports": {
     ".": {
       "import": "./dist/vant-enhance.es.mjs",
@@ -19,6 +19,9 @@
   "files": [
     "dist/"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite build --config ./vite.config.ts --watch",
     "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts"
@@ -30,6 +33,7 @@
   "devDependencies": {
     "@vueuse/core": "^8.5.0",
     "dayjs": "^1.11.2",
+    "unplugin-vue-define-options": "^0.6.1",
     "vant": "^3.4.9",
     "vue": "^3.2.33"
   }

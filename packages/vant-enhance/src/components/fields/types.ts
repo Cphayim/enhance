@@ -7,7 +7,7 @@ export type FieldOption = {
   /**
    * 显示用文本
    */
-  text: string
+  label: string
   /**
    * 值
    */
@@ -22,7 +22,7 @@ export type FieldOption = {
   children?: FieldOption[]
 }
 
-export type FieldProps = {
+export type FieldProps<F = string> = {
   // 通用
   /**
    * 左侧标题
@@ -31,7 +31,7 @@ export type FieldProps = {
   /**
    * 字段名
    */
-  fieldName: string
+  name: F
   /**
    * 字段值, v-model:value
    */
@@ -95,7 +95,13 @@ export type FieldProps = {
   /**
    * 日期选择器类型
    */
-  datetimeType?: 'date' | 'datetime' | 'year-month' | 'month-day' | 'datehour' | 'time'
+  datetimeType?:
+    | 'date'
+    | 'datetime'
+    | 'year-month'
+    | 'month-day'
+    | 'datehour'
+    | 'time'
   /**
    * 日期格式
    */
@@ -117,5 +123,5 @@ export type FieldEmits = {
   // SelectField
   (e: 'change:select', value: any): void
   // DatetimeField
-  (e: 'change:datetime', value: string | Date): void
+  (e: 'change:datetime', value: any): void
 }

@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    sourcemap: true,
+    // sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'VantEnhance',
@@ -49,9 +49,10 @@ export default defineConfig({
     ...baseConfig.plugins!,
     dts({
       // tsConfigFilePath: resolve(ROOT, 'tsconfig.json'),
-      outputDir: resolve(__dirname, 'dist'),
-      entryRoot: resolve(__dirname, 'src'),
-      rollupTypes: true,
+      outputDir: resolve(__dirname, 'dist/types'),
+      // entryRoot: resolve(__dirname, 'src'),
+      rollupTypes: false,
+      insertTypesEntry: true,
       // copyDtsFiles: false,
       beforeWriteFile: (filePath, content) => {
         // console.log(filePath)

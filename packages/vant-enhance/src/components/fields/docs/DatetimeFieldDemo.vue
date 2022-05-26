@@ -12,7 +12,7 @@ const info = ref({
   <div>
     <ve-datetime-field
       title="日期"
-      fieldName="date"
+      name="date"
       v-model:value="info.date"
       datetime-type="date"
       datetime-format="YYYY-MM-DD"
@@ -20,7 +20,7 @@ const info = ref({
     />
     <ve-datetime-field
       title="时间"
-      fieldName="time"
+      name="time"
       v-model:value="info.time"
       datetime-type="time"
       datetime-format="HH:mm"

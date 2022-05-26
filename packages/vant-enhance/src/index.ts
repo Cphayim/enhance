@@ -11,3 +11,4 @@ const VantEnhance: Plugin = {
 export default VantEnhance
 
 export * from './components'
+export * from './hooks'

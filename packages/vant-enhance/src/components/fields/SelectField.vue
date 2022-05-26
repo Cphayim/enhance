@@ -33,6 +33,11 @@ const props = withDefaults(defineProps<FieldProps>(), {
 const emit = defineEmits<FieldEmits>()
 
 const showPicker = ref(false)
+const columnFieldNames = ref({
+  text: 'label',
+  values: 'values',
+  children: 'children',
+})
 
 const optionMap = ref(new Map<string | number, FieldOption>())
 
@@ -136,6 +141,7 @@ const handleFieldClick = () => {
         @cancel="showPicker = false"
         :default-index="_selectIndex"
         :show-toolbar="showToolbar"
+        :columns-field-names="columnFieldNames"
         ref="selectRef"
       />
     </van-popup>

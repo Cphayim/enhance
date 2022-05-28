@@ -20,5 +20,5 @@ export type FormProps = {
   /**
    * 表单键值
    */
-  values: Record<string, any>
+  data: Record<string, any>
 }

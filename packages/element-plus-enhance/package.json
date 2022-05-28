@@ -1,0 +1,38 @@
+{
+  "name": "@cphayim/element-plus-enhance",
+  "description": "",
+  "keywords": [],
+  "license": "ISC",
+  "author": "Cphayim <i@cphayim.me>",
+  "version": "0.0.0",
+  "main": "./dist/element-plus-enhance.cjs.js",
+  "module": "./dist/element-plus-enhance.es.mjs",
+  "browser": "./dist/element-plus-enhance.umd.js",
+  "types": "./dist/element-plus-enhance.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/element-plus-enhance.es.mjs",
+      "require": "./dist/element-plus-enhance.cjs.js"
+    },
+    "./style": "./dist/element-plus-enhance.css"
+  },
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build:watch": "vite build --config ./vite.config.ts --watch",
+    "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts"
+  },
+  "peerDependencies": {
+    "element-plus": "^2.2.0",
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "async-validator": "^4.1.1",
+    "dayjs": "^1.11.2",
+    "element-plus": "^2.2.2",
+    "unplugin-vue-define-options": "^0.6.1",
+    "vue": "^3.2.33"
+  }
+}

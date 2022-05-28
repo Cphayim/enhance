@@ -20,7 +20,7 @@ export default defineConfig({
     sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'VantEnhance',
+      name: 'ElementPlusEnhance',
       formats: ['es', 'cjs', 'umd'],
       fileName: (format) => {
         return `${libName}.${
@@ -29,12 +29,12 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['vue', 'vant'],
+      external: ['vue', 'element-plus'],
       output: {
         exports: 'named',
         globals: {
           vue: 'Vue',
-          vant: 'vant',
+          ['element-plus']: 'ElementPlus',
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') {
@@ -56,7 +56,7 @@ export default defineConfig({
       cleanVueFileName: true,
       // copyDtsFiles: false,
       beforeWriteFile: (filePath, content) => {
-        // console.log(filePath)
+        console.log(filePath)
         return { filePath, content }
       },
     }),

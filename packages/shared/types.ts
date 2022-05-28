@@ -1,4 +1,4 @@
-export type FieldProps<F = string> = {
+export type FieldProps<F = string, E = any> = {
   // 通用
   /**
    * 左侧标题
@@ -12,6 +12,10 @@ export type FieldProps<F = string> = {
    * 字段值, v-model:value
    */
   value?: any
+  /**
+   * 额外内容，组件不负责处理
+   */
+  extra?: E
   /**
    * 只读
    */

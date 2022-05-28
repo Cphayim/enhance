@@ -37,6 +37,7 @@
     "vite-plugin-dts": "^1.1.1",
     "vite-plugin-md": "^0.13.1",
     "vite-plugin-vue-type-imports": "^0.2.0",
+    "vue": "^3.2.33",
     "vue-tsc": "^0.34.7"
   }
 }

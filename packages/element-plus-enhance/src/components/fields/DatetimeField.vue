@@ -1,0 +1,79 @@
+<script setup lang="ts">
+// import dayjs from 'dayjs'
+// import { ref, computed } from 'vue'
+
+import type { FieldProps } from '@/shared/types'
+import type { FieldEmits } from './types'
+
+defineOptions({ name: 'EpeDatetimeField' })
+
+const props = withDefaults(defineProps<FieldProps>(), {
+  // 全部通用
+  readonly: false,
+  disabled: false,
+  rules: () => [],
+  placeholder: '',
+  align: 'left',
+  // 选择器通用
+  closeOnClickOverlay: false,
+  showToolbar: true,
+  // datetime
+  datetimeType: 'date',
+  datetimeFormat: 'YYYY-MM-DD',
+})
+
+const emit = defineEmits<FieldEmits>()
+console.log(props, emit)
+
+// const showPicker = ref(false)
+// // 输入框显示的值，这里可能包含初始化情况，需要进行格式化
+// const _datetimeText = computed(() => {
+//   if (props.datetimeType === 'time') return props.value as string
+//   const d = dayjs(props.value as string)
+//   return d.isValid() ? d.format(props.datetimeFormat) : (props.value as string)
+// })
+// // 用于 v-model 的值
+// const _currentDatetime = ref<string | Date>(
+//   props.datetimeType === 'time'
+//     ? (props.value as string)
+//     : dayjs(
+//         (props.value as string) /* 空串会出现 invalid date */ || undefined,
+//       ).toDate(),
+// )
+
+// const handleDatetimeConfirm = (value: string | Date) => {
+//   // 这里有两种情况
+//   // 如果 datetimeType 是 'time'，传递过来的是 '12:00' 这样的字符串
+//   // 否则是一个 Date 对象
+//   const fValue =
+//     value instanceof Date ? dayjs(value).format(props.datetimeFormat) : value
+//   emit('update:value', fValue)
+//   emit('change:datetime', value)
+//   showPicker.value = false
+// }
+// // 选择器时间格式化
+// const dtf = (type: string, value: string) => {
+//   const map = {
+//     year: '年',
+//     month: '月',
+//     day: '日',
+//   }
+//   const suffix = map[type as keyof typeof map]
+//   return suffix ? `${value}${suffix}` : value
+// }
+
+// const handleFieldClick = () => {
+//   if (props.readonly || props.disabled) return
+//   emit('click')
+//   showPicker.value = true
+// }
+</script>
+
+<template>
+  <!-- 日期选择 -->
+  <template> </template>
+  <!-- 时间选择 -->
+  <template> </template>
+</template>
+
+<style scoped></style>

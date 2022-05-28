@@ -11,14 +11,14 @@ defineOptions({ name: 'VeForm' })
 const props = defineProps<FormProps>()
 
 const emit = defineEmits<{
-  (e: 'update:values', values: any): void
+  (e: 'update:data', values: any): void
 }>()
 
 const formRef = ref<FormInstance>()
 
 const handleValueChange = (name: string, value: any) => {
-  emit('update:values', {
-    ...props.values,
+  emit('update:data', {
+    ...props.data,
     [name]: value,
   })
 }
@@ -28,7 +28,7 @@ const validate = async (name?: string | string[]) => {
   return formRef.value.validate(name)
 }
 
-const getValues = () => props.values
+const getValues = () => props.data
 
 defineExpose({
   validate,
@@ -41,7 +41,7 @@ defineExpose({
     <template v-for="field in items" :key="field.name">
       <FormItem
         v-bind="field"
-        :value="values[field.name]"
+        :value="data[field.name]"
         @update:value="(value) => handleValueChange(field.name, value)"
       >
         <!-- 将 FieldItem 的插槽作用域再传出去 -->

@@ -5,7 +5,8 @@ import 'vant/es/cell-group/style/index'
 import 'vant/es/field/style/index'
 
 import { useVModel } from '@vueuse/core'
-import type { FieldEmits, FieldProps } from './types'
+import type { FieldEmits } from './types'
+import type { FieldProps } from '@/shared/types'
 
 defineOptions({ name: 'VeInputField' })
 

@@ -12,7 +12,8 @@ import 'vant/es/popup/style/index'
 import 'vant/es/picker/style/index'
 
 import { isNone } from '../../../../shared'
-import { FieldProps, FieldEmits, FieldOption } from './types'
+import type { FieldEmits } from './types'
+import type { FieldProps, FieldOption } from '@/shared/types'
 
 defineOptions({ name: 'VeSelectField' })
 
@@ -27,7 +28,6 @@ const props = withDefaults(defineProps<FieldProps>(), {
   showToolbar: true,
   // select
   options: () => [],
-  defaultIndex: 0,
 })
 
 const emit = defineEmits<FieldEmits>()

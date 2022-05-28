@@ -53,6 +53,7 @@ export default defineConfig({
       // entryRoot: resolve(__dirname, 'src'),
       rollupTypes: false,
       insertTypesEntry: true,
+      cleanVueFileName: true,
       // copyDtsFiles: false,
       beforeWriteFile: (filePath, content) => {
         // console.log(filePath)

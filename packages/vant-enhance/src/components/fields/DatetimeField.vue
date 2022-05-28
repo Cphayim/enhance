@@ -12,7 +12,8 @@ import 'vant/es/field/style/index'
 import 'vant/es/popup/style/index'
 import 'vant/es/datetime-picker/style/index'
 
-import type { FieldEmits, FieldProps } from './types'
+import type { FieldEmits } from './types'
+import type { FieldProps } from '@/shared/types'
 
 defineOptions({ name: 'VeDatetimeField' })
 

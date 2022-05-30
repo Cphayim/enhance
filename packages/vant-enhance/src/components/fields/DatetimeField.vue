@@ -37,6 +37,7 @@ const emit = defineEmits<FieldEmits>()
 const showPicker = ref(false)
 // 输入框显示的值，这里可能包含初始化情况，需要进行格式化
 const _datetimeText = computed(() => {
+  if (!props.value) return ''
   if (props.datetimeType === 'time') return props.value as string
   const d = dayjs(props.value as string)
   return d.isValid() ? d.format(props.datetimeFormat) : (props.value as string)

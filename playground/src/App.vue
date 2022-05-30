@@ -1,7 +1,33 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ElConfigProvider } from 'element-plus'
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+const locale = zhCn
+</script>
 
 <template>
-  <router-view />
+  <el-config-provider :locale="locale">
+    <div class="header">
+      <router-link to="/test">表单组件测试</router-link>
+      <router-link to="/form-editor">表单编辑器</router-link>
+    </div>
+    <router-view />
+  </el-config-provider>
 </template>
 
-<style scoped></style>
+<style>
+body {
+  background-color: #f7f7f7;
+}
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+.header a {
+  margin: 0 20px;
+  color: #666;
+}
+.header a.router-link-active {
+  color: rgb(34, 152, 225);
+}
+</style>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-// import dayjs from 'dayjs'
-// import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { useVModel } from '@vueuse/core'
+import dayjs from 'dayjs'
 
 import type { FieldProps } from '@/shared/types'
 import type { FieldEmits } from './types'
@@ -12,7 +13,7 @@ const props = withDefaults(defineProps<FieldProps>(), {
   readonly: false,
   disabled: false,
   rules: () => [],
-  placeholder: '',
+  placeholder: '请选择',
   align: 'left',
   // 选择器通用
   closeOnClickOverlay: false,
@@ -23,57 +24,53 @@ const props = withDefaults(defineProps<FieldProps>(), {
 })
 
 const emit = defineEmits<FieldEmits>()
-console.log(props, emit)
 
-// const showPicker = ref(false)
-// // 输入框显示的值，这里可能包含初始化情况，需要进行格式化
-// const _datetimeText = computed(() => {
-//   if (props.datetimeType === 'time') return props.value as string
-//   const d = dayjs(props.value as string)
-//   return d.isValid() ? d.format(props.datetimeFormat) : (props.value as string)
-// })
-// // 用于 v-model 的值
-// const _currentDatetime = ref<string | Date>(
-//   props.datetimeType === 'time'
-//     ? (props.value as string)
-//     : dayjs(
-//         (props.value as string) /* 空串会出现 invalid date */ || undefined,
-//       ).toDate(),
-// )
+// element-plus 日期自带格式转换，不需要额外处理
+const _dateValue = useVModel(props, 'value', emit)
 
-// const handleDatetimeConfirm = (value: string | Date) => {
-//   // 这里有两种情况
-//   // 如果 datetimeType 是 'time'，传递过来的是 '12:00' 这样的字符串
-//   // 否则是一个 Date 对象
-//   const fValue =
-//     value instanceof Date ? dayjs(value).format(props.datetimeFormat) : value
-//   emit('update:value', fValue)
-//   emit('change:datetime', value)
-//   showPicker.value = false
-// }
-// // 选择器时间格式化
-// const dtf = (type: string, value: string) => {
-//   const map = {
-//     year: '年',
-//     month: '月',
-//     day: '日',
-//   }
-//   const suffix = map[type as keyof typeof map]
-//   return suffix ? `${value}${suffix}` : value
-// }
-
-// const handleFieldClick = () => {
-//   if (props.readonly || props.disabled) return
-//   emit('click')
-//   showPicker.value = true
-// }
+// 时间需要处理对 vant 的适配
+const _timeValue = computed({
+  get() {
+    if (!props.value) return void 0
+    // props.value: "12:00"
+    // 转成 date 对象给 time-picker
+    return dayjs(dayjs().format('YYYY-MM-DD') + props.value).toDate()
+  },
+  set(date: Date | undefined) {
+    if (!date) {
+      emit('update:value', null)
+    } else {
+      // time 的格式化固定为 hh:mm
+      emit('update:value', dayjs(date).format('hh:mm'))
+    }
+  },
+})
 </script>
 
 <template>
-  <!-- 日期选择 -->
-  <template> </template>
-  <!-- 时间选择 -->
-  <template> </template>
+  <div>
+    <!-- 时间选择 -->
+    <template v-if="props.datetimeType === 'time'">
+      <el-time-picker
+        v-model="_timeValue"
+        :readonly="props.readonly"
+        :disabled="props.disabled"
+        :placeholder="props.placeholder"
+      />
+    </template>
+    <!-- 日期选择 -->
+    <template v-else>
+      <el-date-picker
+        type="date"
+        v-model="_dateValue"
+        :format="props.datetimeFormat"
+        :value-format="props.datetimeFormat"
+        :readonly="props.readonly"
+        :disabled="props.disabled"
+        :placeholder="props.placeholder"
+      />
+    </template>
+  </div>
 </template>
 
 <style scoped></style>

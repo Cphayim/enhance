@@ -28,6 +28,7 @@ const props = withDefaults(defineProps<FieldProps>(), {
   showToolbar: true,
   // select
   options: () => [],
+  selectType: 'select',
 })
 
 const emit = defineEmits<FieldEmits>()
@@ -61,13 +62,11 @@ watchEffect(() => {
   trackOption(props.options)
 })
 
-const _selected = ref<FieldOption | FieldOption[]>()
-
 // 选项索引，仅单列有效
 const _selectIndex = computed(() => {
-  if (Array.isArray(props.value)) {
-    return -1 // vant 不支持多列默认值
-  }
+  // vant 不支持多列默认值，如果设置 -1 会导致不渲染级联
+  if (props.selectType === 'cascader') return void 0
+
   return props.options.findIndex((option) => option.value === props.value)
 })
 
@@ -75,27 +74,17 @@ const _selectIndex = computed(() => {
 const _selectLabel = computed(() => getSelectLabel())
 // 获取当前选择的文本
 function getSelectLabel() {
-  if (isNone(_selected.value)) return getSelectInitialLabel()
-  if (Array.isArray(_selected.value)) {
-    return _selected.value.map((option) => option.label).join(', ')
-  } else {
-    return _selected.value.label
-  }
-}
-// 获取初始选择文本
-function getSelectInitialLabel() {
   if (isNone(props.value)) return ''
   if (Array.isArray(props.value)) {
     return props.value
       .map((value) => optionMap.value.get(value)?.label)
-      .join(', ')
+      .join(' / ')
   } else {
     return optionMap.value.get(props.value)?.label
   }
 }
 
 const handleSelectConfirm = (selected: FieldOption | FieldOption[]) => {
-  _selected.value = selected
   const value = Array.isArray(selected)
     ? selected.map((item) => item.value)
     : selected.value

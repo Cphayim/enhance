@@ -20,8 +20,7 @@
     "dist/"
   ],
   "scripts": {
-    "dev": "vite",
-    "build:watch": "vite build --config ./vite.config.ts --watch",
+    "dev": "vite build --config ./vite.config.ts --watch",
     "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts"
   },
   "peerDependencies": {
@@ -29,7 +28,7 @@
     "vue": "^3.2.25"
   },
   "devDependencies": {
-    "async-validator": "^4.1.1",
+    "@vueuse/core": "^8.5.0",
     "dayjs": "^1.11.2",
     "element-plus": "^2.2.2",
     "unplugin-vue-define-options": "^0.6.1",

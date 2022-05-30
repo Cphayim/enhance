@@ -56,7 +56,7 @@ export default defineConfig({
       cleanVueFileName: true,
       // copyDtsFiles: false,
       beforeWriteFile: (filePath, content) => {
-        console.log(filePath)
+        // console.log(filePath)
         return { filePath, content }
       },
     }),

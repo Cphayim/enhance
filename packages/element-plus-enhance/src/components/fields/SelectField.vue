@@ -33,7 +33,10 @@ const _cascaderProps = computed(() => {
     <el-cascader
       v-model="_value"
       :options="props.options"
+      :readonly="props.readonly"
+      :disabled="props.disabled"
       :props="_cascaderProps"
+      size="default"
     />
   </template>
 
@@ -41,6 +44,8 @@ const _cascaderProps = computed(() => {
     <el-select
       v-model="_value"
       :placeholder="props.placeholder"
+      :readonly="props.readonly"
+      :disabled="props.disabled"
       :multiple="selectMultiple"
       size="default"
     >
@@ -54,4 +59,4 @@ const _cascaderProps = computed(() => {
   </template>
 </template>
 
-<style scoped></style>
+<style></style>

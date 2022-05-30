@@ -3,7 +3,12 @@ import { useAttrs } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 import type { FormItemType } from './types'
-import { FieldProps, EpeInputField, EpeSelectField } from '../fields'
+import {
+  FieldProps,
+  EpeInputField,
+  EpeSelectField,
+  EpeDatetimeField,
+} from '../fields'
 
 defineOptions({ name: 'EpeFormItem', inheritAttrs: false })
 
@@ -36,7 +41,7 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
 </script>
 
 <template>
-  <div ref="target" class="item-wrap">
+  <div ref="target" class="epe-form-item">
     <el-form-item :label="field.label" :prop="field.name" :rules="field.rules">
       <slot v-bind="field" :value="_value">
         <!-- input -->
@@ -52,11 +57,16 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
           v-model:value="_value"
         >
         </EpeSelectField>
-        <el-time-picker
+        <EpeDatetimeField
+          v-if="props.type === 'datetime'"
+          v-bind="field"
+          v-model:value="_value"
+        ></EpeDatetimeField>
+        <!-- <el-time-picker
           v-if="props.type === 'datetime'"
           v-model="_value"
           placeholder="Arbitrary time"
-        />
+        /> -->
         <!-- <component :is="comp" v-bind="$attrs" v-model:value="_value" /> -->
       </slot>
     </el-form-item>
@@ -99,7 +109,10 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
 ::v-deep(.el-select) {
   width: 100%;
 }
-.item-wrap {
+::v-deep(.el-cascader) {
+  width: 100%;
+}
+.epe-form-item {
   overflow: hidden;
   position: relative;
 }

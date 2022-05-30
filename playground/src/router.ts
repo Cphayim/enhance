@@ -5,7 +5,12 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: '/test',
+      component: () => import('@/views/TestForm.vue'),
+    },
+    {
+      path: '/test',
+      name: '组件测试',
       component: () => import('@/views/TestForm.vue'),
     },
   ],

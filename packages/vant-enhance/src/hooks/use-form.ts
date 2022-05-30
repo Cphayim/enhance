@@ -1,5 +1,6 @@
 import { computed, ref } from 'vue'
 
+import type { IsNotEmptyObject } from '@/shared/utils'
 import type { FieldOption } from '../components/fields'
 import type { FormItemProps } from '../components/form'
 import Form from '../components/form/Form.vue'
@@ -10,7 +11,7 @@ type UseFormOptions = {
 
 export function useForm<T extends Record<string, any>>(
   originData: T,
-  items: FormItemProps<keyof T>[],
+  items: FormItemProps<IsNotEmptyObject<{}> extends false ? keyof T : string>[],
   options: UseFormOptions = {},
 ) {
   // 表单数据 v-model:values

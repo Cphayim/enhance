@@ -5,13 +5,18 @@ export const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/test',
+      redirect: '/test-form',
       component: () => import('@/views/TestForm.vue'),
     },
     {
-      path: '/test',
-      name: '组件测试',
+      path: '/test-form',
+      name: '表单组件测试',
       component: () => import('@/views/TestForm.vue'),
+    },
+    {
+      path: '/test-form-editor',
+      name: '表单编辑器测试',
+      component: () => import('@/views/TestFormEditor.vue'),
     },
   ],
 })

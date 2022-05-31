@@ -48,29 +48,27 @@ const _timeValue = computed({
 </script>
 
 <template>
-  <div>
-    <!-- 时间选择 -->
-    <template v-if="props.datetimeType === 'time'">
-      <el-time-picker
-        v-model="_timeValue"
-        :readonly="props.readonly"
-        :disabled="props.disabled"
-        :placeholder="props.placeholder"
-      />
-    </template>
-    <!-- 日期选择 -->
-    <template v-else>
-      <el-date-picker
-        type="date"
-        v-model="_dateValue"
-        :format="props.datetimeFormat"
-        :value-format="props.datetimeFormat"
-        :readonly="props.readonly"
-        :disabled="props.disabled"
-        :placeholder="props.placeholder"
-      />
-    </template>
-  </div>
+  <!-- 时间选择 -->
+  <template v-if="props.datetimeType === 'time'">
+    <el-time-picker
+      v-model="_timeValue"
+      :readonly="props.readonly"
+      :disabled="props.disabled"
+      :placeholder="props.placeholder"
+    />
+  </template>
+  <!-- 日期选择 -->
+  <template v-else>
+    <el-date-picker
+      type="date"
+      v-model="_dateValue"
+      :format="props.datetimeFormat"
+      :value-format="props.datetimeFormat"
+      :readonly="props.readonly"
+      :disabled="props.disabled"
+      :placeholder="props.placeholder"
+    />
+  </template>
 </template>
 
 <style scoped></style>

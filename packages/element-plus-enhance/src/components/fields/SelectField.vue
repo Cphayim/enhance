@@ -36,7 +36,6 @@ const _cascaderProps = computed(() => {
       :readonly="props.readonly"
       :disabled="props.disabled"
       :props="_cascaderProps"
-      size="default"
     />
   </template>
 
@@ -47,7 +46,6 @@ const _cascaderProps = computed(() => {
       :readonly="props.readonly"
       :disabled="props.disabled"
       :multiple="selectMultiple"
-      size="default"
     >
       <el-option
         v-for="option in props.options"

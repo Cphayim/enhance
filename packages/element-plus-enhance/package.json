@@ -25,13 +25,20 @@
   },
   "peerDependencies": {
     "element-plus": "^2.2.0",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vuedraggable": "^4.1.0"
+  },
+  "peerDependenciesMeta": {
+    "vuedraggable": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@vueuse/core": "^8.5.0",
     "dayjs": "^1.11.2",
     "element-plus": "^2.2.2",
     "unplugin-vue-define-options": "^0.6.1",
-    "vue": "^3.2.33"
+    "vue": "^3.2.33",
+    "vuedraggable": "^4.1.0"
   }
 }

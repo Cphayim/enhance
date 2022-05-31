@@ -31,7 +31,6 @@ const _value = useVModel(props, 'value', emit) as Ref<string | number>
     :maxlength="props.inputMaxLength"
     show-word-limit
     resize="none"
-    size="default"
   />
 </template>
 

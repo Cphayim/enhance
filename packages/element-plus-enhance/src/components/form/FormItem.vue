@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAttrs } from 'vue'
+import { useAttrs, computed } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 import type { FormItemType } from './types'
@@ -28,12 +28,12 @@ const emit = defineEmits<{
 
 const field = useAttrs() as FieldProps
 
-// const CompMap: Record<FormItemType, any> = {
-//   input: VeInputField,
-//   select: VeSelectField,
-//   datetime: VeDatetimeField,
-// }
-// const comp = computed(() => CompMap[props.type])
+const CompMap: Record<FormItemType, any> = {
+  input: EpeInputField,
+  select: EpeSelectField,
+  datetime: EpeDatetimeField,
+}
+const comp = computed(() => CompMap[props.type])
 const _value = useVModel(props, 'value', emit)
 
 // 编辑模式--------------------------------------------------------------------
@@ -44,79 +44,51 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
   <div ref="target" class="epe-form-item">
     <el-form-item :label="field.label" :prop="field.name" :rules="field.rules">
       <slot v-bind="field" :value="_value">
-        <!-- input -->
-        <EpeInputField
-          v-if="props.type === 'input'"
-          v-bind="field"
-          v-model:value="_value"
-        ></EpeInputField>
-        <!-- select -->
-        <EpeSelectField
-          v-if="props.type === 'select'"
-          v-bind="field"
-          v-model:value="_value"
-        >
-        </EpeSelectField>
-        <EpeDatetimeField
-          v-if="props.type === 'datetime'"
-          v-bind="field"
-          v-model:value="_value"
-        ></EpeDatetimeField>
-        <!-- <el-time-picker
-          v-if="props.type === 'datetime'"
-          v-model="_value"
-          placeholder="Arbitrary time"
-        /> -->
-        <!-- <component :is="comp" v-bind="$attrs" v-model:value="_value" /> -->
+        <component :is="comp" v-bind="$attrs" v-model:value="_value" />
       </slot>
     </el-form-item>
 
-    <el-popover
+    <div
       v-if="edit.editMode"
-      :visible="edit.editing"
-      placement="bottom"
-      title="配置项"
-      :width="500"
+      @click="$emit('edit:checked')"
+      :class="['epe-form-item-edit-mode', { active: edit.editing }]"
     >
-      <template #reference>
-        <div
-          @click="$emit('edit:checked')"
-          :class="['edit-mode', { active: edit.editing }]"
-        >
-          <!-- 操作按钮 -->
-          <div v-show="edit.editing" class="edit-opt-box" @click.stop>
-            <div @click="$emit('edit:up')">上</div>
-            <div @click="$emit('edit:down')">下</div>
-            <div @click="$emit('edit:copy')">拷</div>
-            <div @click="$emit('edit:remove')">删</div>
-          </div>
-        </div>
-      </template>
-      <!-- 配置项 -->
-      <div class="field-config-panel">
-        {{ JSON.stringify(field) }}
+      <!-- 操作按钮 -->
+      <div v-show="edit.editing" class="epe-form-item-edit-opt-box" @click.stop>
+        <div @click="$emit('edit:up')">上</div>
+        <div @click="$emit('edit:down')">下</div>
+        <div @click="$emit('edit:copy')">拷</div>
+        <div @click="$emit('edit:remove')">删</div>
       </div>
-    </el-popover>
+    </div>
   </div>
 </template>
 
-<style scoped>
-::v-deep(.el-form-item) {
+<style>
+.epe-form-item .el-form-item {
   margin-top: 14px;
   margin-bottom: 14px;
   padding-right: 8px;
 }
-::v-deep(.el-select) {
+.epe-form-item .el-select {
   width: 100%;
 }
-::v-deep(.el-cascader) {
+.epe-form-item .el-cascader {
   width: 100%;
+}
+.epe-form-item .el-date-editor.el-input {
+  width: 100%;
+}
+.epe-form-item .el-date-editor.el-input .el-input__wrapper {
+  width: 100%;
+  box-sizing: border-box;
 }
 .epe-form-item {
   overflow: hidden;
   position: relative;
 }
-.edit-mode {
+.epe-form-item-edit-mode {
+  user-select: none;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -126,17 +98,20 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
   border-radius: 4px;
   cursor: pointer;
 }
-.edit-mode.active {
+.epe-form-item-edit-mode:active {
+  cursor: move;
+}
+.epe-form-item-edit-mode.active {
   border: 2px dotted rgb(13, 131, 241);
   background-color: rgba(13, 131, 241, 0.3);
 }
-.edit-opt-box {
+.epe-form-item-edit-opt-box {
   position: absolute;
   right: 0;
   bottom: 0;
   display: flex;
 }
-.edit-opt-box > div {
+.epe-form-item-edit-opt-box > div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -146,9 +121,9 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
   font-size: 14px;
   background-color: rgba(13, 131, 241, 0.8);
 }
-.edit-opt-box > div:hover {
+.epe-form-item-edit-opt-box > div:hover {
   background-color: rgba(13, 131, 241, 0.5);
 }
-.field-config-panel {
+.epe-form-item-field-config-panel {
 }
 </style>

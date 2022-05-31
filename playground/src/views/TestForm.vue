@@ -25,6 +25,7 @@ const { formData, formItems } = useForm(
       type: 'input',
       name: 'name',
       rules: [{ required: true, message: '请输入' }],
+      col: 12,
     },
     {
       label: '密码',
@@ -32,6 +33,7 @@ const { formData, formItems } = useForm(
       inputType: 'password',
       name: 'password',
       rules: [{ required: true, message: '请输入' }],
+      col: 12,
     },
     {
       label: '留言板',
@@ -91,12 +93,14 @@ const { formData, formItems } = useForm(
       type: 'datetime',
       name: 'birthday',
       datetimeType: 'date',
+      col: 12,
     },
     {
       label: '时钟',
       type: 'datetime',
       name: 'clock',
       datetimeType: 'time',
+      col: 12,
     },
   ],
   {

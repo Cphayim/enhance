@@ -7,8 +7,8 @@ const locale = zhCn
 <template>
   <el-config-provider :locale="locale">
     <div class="header">
-      <router-link to="/test">表单组件测试</router-link>
-      <router-link to="/form-editor">表单编辑器</router-link>
+      <router-link to="/test-form">表单组件测试</router-link>
+      <router-link to="/test-form-editor">表单编辑器</router-link>
     </div>
     <router-view />
   </el-config-provider>

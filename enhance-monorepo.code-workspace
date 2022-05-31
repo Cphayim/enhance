@@ -21,5 +21,7 @@
       "path": "playground"
     }
   ],
-  "settings": {}
+  "settings": {
+    "cSpell.words": ["vuedraggable"]
+  }
 }

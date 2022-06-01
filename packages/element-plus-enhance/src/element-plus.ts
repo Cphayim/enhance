@@ -29,3 +29,6 @@ import 'element-plus/es/components/cascader/style/css'
 export { ElCheckbox, ElRadio } from 'element-plus'
 import 'element-plus/es/components/checkbox/style/css'
 import 'element-plus/es/components/radio/style/css'
+
+export { ElUpload } from 'element-plus'
+import 'element-plus/es/components/upload/style/css'

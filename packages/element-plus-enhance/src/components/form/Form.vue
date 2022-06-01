@@ -66,7 +66,11 @@ const rowGutterStyle = computed<CSSProperties>(() => ({
   >
     <el-row :gutter="props.colGutter * 2" ref="target">
       <template v-for="item in props.items" :key="item.name">
-        <el-col :span="item.col || 24" :style="rowGutterStyle">
+        <el-col
+          v-if="!item.hidden"
+          :span="item.col || 24"
+          :style="rowGutterStyle"
+        >
           <div :style="{ width: `${(item.width / 24 || 1) * 100}%` }">
             <FormItem
               v-bind="item"

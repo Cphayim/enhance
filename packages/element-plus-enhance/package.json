@@ -4,7 +4,7 @@
   "keywords": [],
   "license": "ISC",
   "author": "Cphayim <i@cphayim.me>",
-  "version": "0.0.0",
+  "version": "0.1.4",
   "main": "./dist/element-plus-enhance.cjs.js",
   "module": "./dist/element-plus-enhance.es.mjs",
   "browser": "./dist/element-plus-enhance.umd.js",
@@ -19,6 +19,9 @@
   "files": [
     "dist/"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite build --config ./vite.config.ts --watch",
     "build": "vue-tsc --noEmit && vite build --config ./vite.config.ts"

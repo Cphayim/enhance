@@ -10,7 +10,7 @@ import draggable from 'vuedraggable/src/vuedraggable'
 import type { FormProps } from './types'
 import FormItem from './FormItem.vue'
 import { FieldProps } from '../fields'
-import { randomStr } from '@/shared/'
+import { randomStr } from '@/shared/index'
 // import { onClickOutside } from '@vueuse/core'
 
 defineOptions({ name: 'EpeEditableForm' })
@@ -71,7 +71,7 @@ function setCurrent(index = -1, skipField = false) {
   }
 }
 
-setCurrent(0)
+// setCurrent(0)
 
 const handleChecked = (index: number) => setCurrent(index)
 // 上移项

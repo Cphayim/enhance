@@ -175,7 +175,11 @@ defineExpose({
     <!-- 右侧配置项编辑区 -->
     <div class="epe-form-editor-r-side">
       <!-- 动态 type 插槽，用户可以通过不同 name: FormItemType 的插槽名来自定义编辑区 -->
-      <slot v-if="current" :name="current.type">
+      <slot
+        v-if="current"
+        :name="current.type"
+        v-bind="{ current, setCurrent }"
+      >
         <EpeFormEditorDefaultEditPanel
           :current="current"
           :setCurrent="setCurrent"

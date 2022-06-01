@@ -1,5 +1,7 @@
-export type FieldProps<F = string, E = any> = {
-  // 通用
+export type FieldProps<F = string, E = any> = CommonFieldProps<F, E> &
+  (InputFieldProps | SelectFieldProps | DatetimeFieldProps)
+
+type CommonFieldProps<F = string, E = any> = {
   /**
    * 左侧标题
    */
@@ -48,8 +50,9 @@ export type FieldProps<F = string, E = any> = {
    * @access vant
    */
   isLink?: boolean
+}
 
-  // InputField
+type InputFieldProps = {
   /**
    * 输入框类型
    */
@@ -62,8 +65,9 @@ export type FieldProps<F = string, E = any> = {
    * 输入框行数，仅 textarea 有效
    */
   inputRows?: number
+}
 
-  // 选择器通用
+type PickerCommonFieldProps = {
   /**
    * 是否在点击遮罩层后关闭
    * @access vant
@@ -74,8 +78,9 @@ export type FieldProps<F = string, E = any> = {
    * @access vant
    */
   showToolbar?: boolean
+}
 
-  // SelectField
+type SelectFieldProps = PickerCommonFieldProps & {
   /**
    * select 选项
    */
@@ -90,8 +95,9 @@ export type FieldProps<F = string, E = any> = {
    * @access element-plus
    */
   selectMultiple?: boolean
+}
 
-  // DatetimeField
+type DatetimeFieldProps = PickerCommonFieldProps & {
   /**
    * 日期选择器类型
    */

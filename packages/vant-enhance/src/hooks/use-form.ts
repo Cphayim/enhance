@@ -9,11 +9,10 @@ type UseFormOptions = {
   defaultProps?: Partial<Omit<FormItemProps, 'type | name | value'>>
 }
 
-export function useForm<T extends Record<string, any>>(
-  originData: T,
-  items: FormItemProps<IsNotEmptyObject<{}> extends false ? keyof T : string>[],
-  options: UseFormOptions = {},
-) {
+export function useForm<
+  T extends Record<string, any>,
+  U = IsNotEmptyObject<{}> extends false ? keyof T : string,
+>(originData: T, items: FormItemProps<U>[], options: UseFormOptions = {}) {
   // 表单数据 v-model:values
   const formData = ref(originData)
   // 表单配置项 :items, 和 defaultProps 合并
@@ -26,16 +25,20 @@ export function useForm<T extends Record<string, any>>(
     formItems.value.forEach((item) => {
       m.set(item.name, item)
     })
-    return m as Map<keyof T, FormItemProps<keyof T>>
+    return m as Map<U, FormItemProps<U>>
   })
 
-  const getItem = (name: keyof T) => map.value.get(name) as FormItemProps
+  const getItem = (name: U) => map.value.get(name) as FormItemProps<U>
 
-  const setOptions = (name: keyof T, options: FieldOption[]) => {
+  const updateItem = (name: U, updateItem: Partial<FormItemProps>) => {
     const item = getItem(name)
     if (item) {
-      item.options = options
+      Object.assign(item, updateItem)
     }
+  }
+
+  const setOptions = (name: U, options: FieldOption[]) => {
+    updateItem(name, { options })
   }
 
   const formRef = ref<InstanceType<typeof Form>>()
@@ -43,6 +46,7 @@ export function useForm<T extends Record<string, any>>(
     formData,
     formItems,
     getItem,
+    updateItem,
     setOptions,
     formRef,
   }

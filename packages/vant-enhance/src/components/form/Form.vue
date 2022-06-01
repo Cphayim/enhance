@@ -40,6 +40,7 @@ defineExpose({
   <van-form ref="formRef" input-align="right" error-message-align="right">
     <template v-for="field in items" :key="field.name">
       <FormItem
+        v-if="!field.hidden"
         v-bind="field"
         :value="data[field.name]"
         @update:value="(value) => handleValueChange(field.name, value)"

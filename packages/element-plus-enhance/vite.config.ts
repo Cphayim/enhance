@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
-    sourcemap: true,
+    // sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'ElementPlusEnhance',

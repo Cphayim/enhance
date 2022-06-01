@@ -55,10 +55,10 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
     >
       <!-- 操作按钮 -->
       <div v-show="edit.editing" class="epe-form-item-edit-opt-box" @click.stop>
-        <div @click="$emit('edit:up')">上</div>
-        <div @click="$emit('edit:down')">下</div>
-        <div @click="$emit('edit:copy')">拷</div>
-        <div @click="$emit('edit:remove')">删</div>
+        <!-- <div @click="$emit('edit:up')">上</div> -->
+        <!-- <div @click="$emit('edit:down')">下</div> -->
+        <div @click="$emit('edit:copy')">复制</div>
+        <div @click="$emit('edit:remove')">删除</div>
       </div>
     </div>
   </div>
@@ -115,8 +115,8 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 30px;
   height: 30px;
+  padding: 0 6px;
   color: #fff;
   font-size: 14px;
   background-color: rgba(13, 131, 241, 0.8);

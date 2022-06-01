@@ -2,6 +2,9 @@
 // 这样打包时，我们的组件类型中不会出现 element-plus 的类型
 // 在组件中 import element-plus 的组件打包时会导致类型问题，无法生成类型文件
 
+export { ElButton } from 'element-plus'
+import 'element-plus/es/components/button/style/css'
+
 export { ElForm, ElRow, ElCol } from 'element-plus'
 import 'element-plus/es/components/form/style/css'
 import 'element-plus/es/components/row/style/css'
@@ -22,3 +25,7 @@ export { ElSelect, ElOption, ElCascader } from 'element-plus'
 import 'element-plus/es/components/select/style/css'
 import 'element-plus/es/components/option/style/css'
 import 'element-plus/es/components/cascader/style/css'
+
+export { ElCheckbox, ElRadio } from 'element-plus'
+import 'element-plus/es/components/checkbox/style/css'
+import 'element-plus/es/components/radio/style/css'

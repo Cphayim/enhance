@@ -5,19 +5,20 @@
 -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-// import draggable from 'vuedraggable/src/vuedraggable'
+import draggable from 'vuedraggable/src/vuedraggable'
 
 import { randomStr } from '@/shared/index'
 
 import EpeEditableForm from './EditableForm.vue'
 import EpeFormEditorDefaultEditPanel from './FormEditorDefaultEditPanel.vue'
-import type { FormEditorProps, FormItemProps } from './types'
+import { FormEditorFeatures, FormEditorProps, FormItemProps } from './types'
 
 defineOptions({ name: 'EpeFormEditor' })
 const props = withDefaults(defineProps<FormEditorProps>(), {
   initItems: () => [],
 })
 
+const formRef = ref<InstanceType<typeof EpeEditableForm>>()
 const formData = ref<Record<string, any>>({})
 const formItems = ref<FormItemProps[]>([...props.initItems])
 
@@ -29,20 +30,22 @@ const current = computed({
 })
 const setCurrent = (item: FormItemProps) => {
   current.value = item
+  formRef.value?.setCurrent(formRef.value.currentFieldIndex)
+  console.log(current.value)
 }
 
 const handleChecked = (index: number) => {
   currentIndex.value = index
-  console.log(formItems.value[index])
+  // console.log(formItems.value[index])
 }
 
 const genDefaultItemMap: Record<string, () => FormItemProps> = {
-  input: () => ({
+  [FormEditorFeatures.Input]: () => ({
     type: 'input',
     label: '单行输入',
     name: `input_${randomStr(6)}`,
   }),
-  textarea: () => ({
+  [FormEditorFeatures.Textarea]: () => ({
     type: 'input',
     label: '多行输入',
     name: `text_${randomStr(6)}`,
@@ -50,7 +53,7 @@ const genDefaultItemMap: Record<string, () => FormItemProps> = {
     inputRows: 4,
     inputMaxLength: 200,
   }),
-  select: () => ({
+  [FormEditorFeatures.Select]: () => ({
     type: 'select',
     label: '下拉选择',
     name: `select_${randomStr(6)}`,
@@ -59,14 +62,14 @@ const genDefaultItemMap: Record<string, () => FormItemProps> = {
       { label: '选项二', value: '选项二' },
     ],
   }),
-  date: () => ({
+  [FormEditorFeatures.Date]: () => ({
     type: 'datetime',
     label: '日期选择',
     name: `date_${randomStr(6)}`,
     datetimeType: 'date',
     datetimeFormat: 'YYYY-MM-DD',
   }),
-  time: () => ({
+  [FormEditorFeatures.Time]: () => ({
     type: 'datetime',
     label: '时间选择',
     name: `time_${randomStr(6)}`,
@@ -75,72 +78,94 @@ const genDefaultItemMap: Record<string, () => FormItemProps> = {
   }),
 }
 
-const categories = ref([
+type Category = {
+  label: string
+  buttons: Button[]
+}
+type Button = {
+  label: string
+  key: string
+}
+
+const categories = ref<Category[]>([
   {
     label: '输入型',
     buttons: [
-      { label: '单行输入', key: 'input' },
-      { label: '多行输入', key: 'textarea' },
+      { label: '单行输入', key: FormEditorFeatures.Input },
+      { label: '多行输入', key: FormEditorFeatures.Textarea },
     ],
   },
   {
     label: '选择型',
     buttons: [
-      { label: '下拉选择', key: 'select' },
-      { label: '日期选择', key: 'date' },
-      { label: '时间选择', key: 'time' },
+      { label: '下拉选择', key: FormEditorFeatures.Select },
+      { label: '日期选择', key: FormEditorFeatures.Date },
+      { label: '时间选择', key: FormEditorFeatures.Time },
     ],
   },
 ])
 
-const handleAdd = (key: string) => {
-  const genFn = genDefaultItemMap[key]
+// 点击添加
+const handleClickAdd = (button: Button) => {
+  const genFn = genDefaultItemMap[button.key]
   if (genFn) {
     const item = genFn()
     formItems.value.push(item)
+    formRef.value?.setCurrent(formItems.value.length - 1)
   }
 }
+// 拖动添加
+const handleDragAdd = (button: Button) => {
+  const genFn = genDefaultItemMap[button.key]
+  return genFn()
+}
+
+const tips = {
+  left: '点击按钮：向表单尾部添加控件\n拖动按钮：向表单合适位置添加控件',
+  center:
+    '点击控件：选中控件进入编辑，右下角按钮可复制或删除控件，右侧栏可编辑属性\n拖动控件：调整控件在表单中的顺序',
+}
+
+const getFormItems = () => formItems.value
+
+defineExpose({
+  getFormItems,
+})
 </script>
 
 <template>
   <div class="epe-form-editor">
     <!-- 左侧选择控件区 -->
     <div class="epe-form-editor-l-side">
+      <pre class="epe-form-editor-tip">{{ tips.left }}</pre>
       <div
         v-for="category in categories"
         :key="category.label"
         class="epe-form-editor-category"
       >
         <div class="epe-form-editor-title">{{ category.label }}</div>
-        <div class="epe-form-editor-list">
-          <div
-            v-for="button in category.buttons"
-            :key="button.label"
-            @click="handleAdd(button.key)"
-            class="epe-form-editor-item"
-          >
-            {{ button.label }}
-          </div>
-        </div>
-        <!-- <draggable
+        <draggable
           v-model="category.buttons"
-          group="people"
-          :move="checkMove"
+          :group="{ name: 'people', pull: 'clone', put: false }"
           :sort="false"
+          :clone="handleDragAdd"
           item-key="key"
+          ghost-class="epe-form-editor-item-ghost"
           class="epe-form-editor-list"
         >
-          <template #item="{ element }">
-            <div @click="handleAdd(element.key)" class="epe-form-editor-item">
-              {{ element.label }}
+          <template #item="{ element: button }">
+            <div @click="handleClickAdd(button)" class="epe-form-editor-item">
+              {{ button.label }}
             </div>
           </template>
-        </draggable> -->
+        </draggable>
       </div>
     </div>
     <!-- 中间控件编辑区 -->
     <div class="epe-form-editor-content">
+      <pre class="epe-form-editor-tip">{{ tips.center }}</pre>
       <EpeEditableForm
+        ref="formRef"
         :data="formData"
         v-model:items="formItems"
         edit-mode
@@ -161,9 +186,17 @@ const handleAdd = (key: string) => {
 </template>
 
 <style>
+.epe-form-editor-tip {
+  font-size: 14px;
+  color: rgb(24, 126, 118);
+  padding: 4px;
+  border-radius: 4px;
+  border: 2px dotted rgb(24, 126, 118);
+  background-color: rgba(24, 126, 118, 0.2);
+}
 .epe-form-editor {
   display: flex;
-  min-height: 500px;
+  min-height: 800px;
 }
 .epe-form-editor * {
   box-sizing: border-box;
@@ -171,7 +204,7 @@ const handleAdd = (key: string) => {
 .epe-form-editor-l-side,
 .epe-form-editor-r-side {
   flex: 0 0 auto;
-  width: 300px;
+  width: 320px;
   padding: 20px;
 }
 .epe-form-editor-l-side {
@@ -183,7 +216,27 @@ const handleAdd = (key: string) => {
 .epe-form-editor-content {
   flex: 1;
   padding: 20px;
+  overflow: auto;
+  max-height: 900px;
 }
+/* .epe-form-editor-content::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+}
+.epe-form-editor-content::-webkit-scrollbar-track {
+  border-radius: 6px;
+}
+.epe-form-editor-content::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.3);
+}
+.epe-form-editor-content::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(255, 255, 255, 0.3);
+}
+.epe-form-editor-content::-webkit-scrollbar-corner {
+  background: transparent;
+} */
+
 .epe-form-editor-category {
   margin-bottom: 20px;
 }
@@ -202,9 +255,15 @@ const handleAdd = (key: string) => {
   padding: 10px 0;
   margin: 6px 0;
   text-align: center;
-  background-color: var(--epe-color-form-editor-button);
+  border-radius: 4px;
+  border: 2px dotted rgb(13, 131, 241);
+  background-color: rgba(13, 131, 241, 0.3);
+  color: var(--epe-color-text-2);
 }
 .epe-form-editor-item:active {
   filter: brightness(0.75);
 }
+/* .epe-form-editor-item-ghost {
+  flex: 0 0 100%;
+} */
 </style>

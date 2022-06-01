@@ -5,10 +5,12 @@
 -->
 <script setup lang="ts">
 import { computed, watchEffect, ref, type CSSProperties } from 'vue'
+import draggable from 'vuedraggable/src/vuedraggable'
 
 import type { FormProps } from './types'
 import FormItem from './FormItem.vue'
 import { FieldProps } from '../fields'
+import { randomStr } from '@/shared/'
 // import { onClickOutside } from '@vueuse/core'
 
 defineOptions({ name: 'EpeEditableForm' })
@@ -47,10 +49,6 @@ const validate = async () => {
 }
 
 const getValues = () => props.data
-defineExpose({
-  validate,
-  getValues,
-})
 
 const rowGutterStyle = computed<CSSProperties>(() => ({
   marginTop: `${props.rowGutter / 2}px`,
@@ -104,8 +102,8 @@ const handleCopy = (index: number) => {
   const items = [...props.items] as FieldProps[]
   const field: FieldProps = {
     ...items[index],
-    name: `${items[index].name}_1`, // name 不能重复
-    label: `${items[index].label}_1`,
+    name: `${items[index].name.split('_')[0]}_${randomStr(6)}`, // name 不能重复
+    label: `${items[index].label}`,
   }
   items.push(field)
   emit('update:items', items)
@@ -117,6 +115,22 @@ function swap(items: unknown[], i1: number, i2: number) {
 
 // const target = ref<HTMLElement | null>(null)
 // onClickOutside(target, (_) => setCurrent(-1))
+const handleDragLog = (_: any) => {
+  //
+}
+const handleDragChoose = (_: any) => {
+  setCurrent(_.oldIndex)
+}
+const handleDragAdd = (_: any) => {
+  setCurrent(_.newIndex)
+}
+
+defineExpose({
+  validate,
+  getValues,
+  setCurrent,
+  currentFieldIndex,
+})
 </script>
 
 <template>
@@ -126,9 +140,20 @@ function swap(items: unknown[], i1: number, i2: number) {
     :label-width="props.labelWidth"
     @submit.prevent
     :size="props.size"
+    class="epe-editable-form"
   >
-    <el-row :gutter="props.colGutter * 2" ref="target">
-      <template v-for="(item, index) in props.items" :key="item.name">
+    <draggable
+      :list="props.items"
+      group="people"
+      item-key="name"
+      tag="el-row"
+      :gutter="props.colGutter * 2"
+      @change="handleDragLog"
+      @add="handleDragAdd"
+      @choose="handleDragChoose"
+      ref="target"
+    >
+      <template #item="{ element: item, index }">
         <el-col :span="item.col || 24" :style="rowGutterStyle">
           <div :style="{ width: `${(item.width / 24 || 1) * 100}%` }">
             <FormItem
@@ -143,7 +168,6 @@ function swap(items: unknown[], i1: number, i2: number) {
               @edit:remove="handleRemove(index)"
               @edit:copy="handleCopy(index)"
             >
-              <!-- 将 FieldItem 的插槽作用域再传出去 -->
               <template #default="itemSlotScope">
                 <slot :name="item.name" v-bind="itemSlotScope" />
               </template>
@@ -151,8 +175,15 @@ function swap(items: unknown[], i1: number, i2: number) {
           </div>
         </el-col>
       </template>
-    </el-row>
+    </draggable>
   </el-form>
 </template>
 
-<style></style>
+<style>
+.epe-editable-form {
+  user-select: none;
+}
+.epe-editable-form .epe-form-editor-item {
+  flex: 0 0 100%;
+}
+</style>

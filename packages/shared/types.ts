@@ -13,7 +13,9 @@ export type FieldProps<F = string, E = any> = {
    */
   value?: any
   /**
-   * 额外内容，组件不负责处理
+   * 额外内容，你可以再此存储一些特定业务场景的东西，比如 select 对应的枚举或字典值，上传地址等
+   *
+   * 组件不负责处理该内容，使用前自行转化为有效的组件 props
    */
   extra?: E
   /**

@@ -7,9 +7,10 @@
 import dayjs from 'dayjs'
 
 import { useForm } from '@cphayim/element-plus-enhance'
+import consola from 'consola'
 // import { useForm } from '@cphayim/vant-enhance'
 
-const { formData, formItems } = useForm(
+const { formData, formItems, formRef } = useForm(
   {
     name: null,
     password: null,
@@ -109,18 +110,34 @@ const { formData, formItems } = useForm(
     },
   },
 )
+
+const handleSubmit = async () => {
+  try {
+    await formRef.value?.validate()
+    consola.success('正在提交的数据：')
+    consola.success(JSON.parse(JSON.stringify(formData.value)))
+    // fetch('/form', { method: 'POST', body: JSON.stringify(formData.value) })
+  } catch (error) {
+    console.error(error)
+  }
+}
 </script>
 
 <template>
   <div class="f">
     <div class="pc">
-      <el-card>
+      <el-card style="height: 700px">
         <EpeForm
+          ref="formRef"
           :items="formItems"
           v-model:data="formData"
           :labelWidth="100"
         ></EpeForm>
-        <button>提交</button>
+        <div class="flex justify-center">
+          <el-button @click="handleSubmit" type="primary" size="large">
+            提交
+          </el-button>
+        </div>
       </el-card>
     </div>
     <div class="mobile">

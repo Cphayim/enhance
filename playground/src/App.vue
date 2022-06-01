@@ -30,4 +30,14 @@ body {
 .header a.router-link-active {
   color: rgb(34, 152, 225);
 }
+.mx-20 {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.flex {
+  display: flex;
+}
+.justify-center {
+  justify-content: center;
+}
 </style>

@@ -8,3 +8,7 @@ export const withInstall = <T>(comp: T): SFCWithInstall<T> => {
   }
   return comp as SFCWithInstall<T>
 }
+
+export function isComponent<T>(component: T): component is SFCWithInstall<T> {
+  return !!(component as any).install
+}

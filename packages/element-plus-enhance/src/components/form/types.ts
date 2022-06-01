@@ -55,9 +55,25 @@ export type FormProps = {
   editMode?: boolean
 }
 
+/**
+ * 表单编辑器支持的功能
+ */
+export enum FormEditorFeatures {
+  All = 'all',
+  Input = 'input',
+  Textarea = 'textarea',
+  Select = 'select',
+  Date = 'date',
+  Time = 'time',
+}
+
 export type FormEditorProps = {
   /**
    * 初始表单项
    */
   initItems?: any[] // FormItemProps
+  /**
+   * 左侧支持的控件功能列表
+   */
+  features?: FormEditorFeatures[]
 }

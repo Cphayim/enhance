@@ -4,7 +4,7 @@
   "keywords": [],
   "license": "ISC",
   "author": "Cphayim <i@cphayim.me>",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "main": "./dist/element-plus-enhance.cjs.js",
   "module": "./dist/element-plus-enhance.es.mjs",
   "browser": "./dist/element-plus-enhance.umd.js",
@@ -28,13 +28,7 @@
   },
   "peerDependencies": {
     "element-plus": "^2.2.0",
-    "vue": "^3.2.25",
-    "vuedraggable": "^4.1.0"
-  },
-  "peerDependenciesMeta": {
-    "vuedraggable": {
-      "optional": true
-    }
+    "vue": "^3.2.25"
   },
   "devDependencies": {
     "@vueuse/core": "^8.5.0",

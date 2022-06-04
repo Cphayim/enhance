@@ -9,8 +9,6 @@ Demo: http://enhance.vrndeco.cn/test-form-editor
 
 移动端对应包： [@cphayim/vant-enhance](https://www.npmjs.com/package/@cphayim/vant-enhance)
 
-
-
 [TOC]
 
 ## 安装
@@ -19,18 +17,12 @@ Demo: http://enhance.vrndeco.cn/test-form-editor
 npm i @cphayim/element-plus-enhance
 ```
 
-注意：你需要确保项目中已安装如下对等依赖！如果你不使用我们的表单编辑器组件，则无需安装 `vuedraggable`
+注意：你需要确保项目中已安装如下对等依赖
 
 ```
 "peerDependencies": {
     "element-plus": "^2.2.0",
     "vue": "^3.2.25",
-    "vuedraggable": "^4.1.0"
-},
-"peerDependenciesMeta": {
-    "vuedraggable": {
-      "optional": true
-    }
 }
 ```
 
@@ -40,10 +32,7 @@ npm i @cphayim/element-plus-enhance
 import ElementPlusEnhance from '@cphayim/element-plus-enhance'
 import '@cphayim/element-plus-enhance/style'
 
-const app = createApp(App)
-  .use(ElementPlusEnhance)
-  .mount('#app')
-
+const app = createApp(App).use(ElementPlusEnhance).mount('#app')
 ```
 
 你无需在项目中全量安装 `element-plus`，依然可以使用按需导入或自动导入。事实上此包中也是按需导入了使用到的 `element-plus`的相关组件与样式，因此全量安装此包不会对你的项目体积产生较大影响。
@@ -58,41 +47,41 @@ const app = createApp(App)
 
 ```html
 <script setup lang="ts">
-import { useForm } from '@cphayim/element-plus-enhance'
-  
-const { formData, formItems, formRef } = useForm(
-  {
-    username: null,
-    message: null,
-  },
-  [
-    { type: 'input', label: '用户名', name: 'username' },
-    { type: 'input', label: '留言', name: 'message' },
-  ],
-)
+  import { useForm } from '@cphayim/element-plus-enhance'
 
-const handleSubmit = async () => {
-  try {
-    await formRef.value?.validate()
-    console.log(formData.value)
-    // fetch('/form', { method: 'POST', body: JSON.stringify(formData.value) })
-  } catch (error) {
-    console.error(error)
+  const { formData, formItems, formRef } = useForm(
+    {
+      username: null,
+      message: null,
+    },
+    [
+      { type: 'input', label: '用户名', name: 'username' },
+      { type: 'input', label: '留言', name: 'message' },
+    ],
+  )
+
+  const handleSubmit = async () => {
+    try {
+      await formRef.value?.validate()
+      console.log(formData.value)
+      // fetch('/form', { method: 'POST', body: JSON.stringify(formData.value) })
+    } catch (error) {
+      console.error(error)
+    }
   }
-}
 </script>
 
 <template>
   <div>
-     <EpeForm
-       ref="formRef"
-       :items="formItems"
-       v-model:data="formData"
-       :labelWidth="100"
-     ></EpeForm>
-     <el-button @click="handleSubmit" type="primary" size="large">
-       提交
-     </el-button>
+    <EpeForm
+      ref="formRef"
+      :items="formItems"
+      v-model:data="formData"
+      :labelWidth="100"
+    ></EpeForm>
+    <el-button @click="handleSubmit" type="primary" size="large">
+      提交
+    </el-button>
   </div>
 </template>
 ```
@@ -110,19 +99,17 @@ const formData = ref({
   message: null,
 })
 // 使用 FormItemProps 进行类型提示和自动完成
-const formItems = ref<FormItemProps[]>(
-	[
-    { type: 'input', label: '用户名', name: 'username' },
-    { type: 'input', label: '留言', name: 'message' },
-  ]
-)
+const formItems = ref<FormItemProps[]>([
+  { type: 'input', label: '用户名', name: 'username' },
+  { type: 'input', label: '留言', name: 'message' },
+])
 ```
 
 ### 配置项与类型
 
 `EpeForm` 及其子组件所需的 `props`
 
- ```typescript
+```typescript
 /**
  * EpeForm 组件 props
  */
@@ -173,13 +160,12 @@ export type FormItemProps<F = string> = {
    */
   width?: number
 } & FieldProps<F> // FieldProps 是通用字段描述类型，和 @cphayim/vant-enhance 中的完全一致
-  
+
 /**
  * 表单项类型
  */
 export type FormItemType = 'input' | 'select' | 'datetime'
-
- ```
+```
 
 `FieldProps` 是通用字段描述类型，和 `@cphayim/vant-enhance` 中的完全一致
 
@@ -363,10 +349,7 @@ export type FieldRule = {
    */
   message?: string
 }
-
 ```
-
-
 
 ### useForm 钩子
 
@@ -388,9 +371,8 @@ export function useForm<
 }
 ```
 
-
-
 - 入参:
+
   - `originData`: 用于绑定数据的对象，可以是一个空对象
   - `items`: 表单配置项数组
   - `options`: 其它选项
@@ -404,55 +386,51 @@ export function useForm<
   - `setOptions`：用于快速设置对应 `name` 的 `select` 选项
   - `formRef`: 表单组件实例
 
-
-
 来看一个例子，假设我们有 `carMode` 和 `roomId` 两个字段的表单，仅当 `carMode` 的值对应跑车时，出现房号输入框：
 
 ```html
 <script setup lang="ts">
-import { useForm } from '@cphayim/element-plus-enhance'
-  
-const { formData, formItems, formRef } = useForm(
-  {
-    carMode: null,
-    roomId: null,
-  },
-  [
-    {
-      label: '车型',
-      type: 'select',
-      name: 'carMode',
-      options: [
-        { label: '轿车', value: 1 },
-        { label: '三轮车', value: 2 },
-        { label: '跑车', value: 3 },
-        { label: '货车', value: 4 },
-      ],
-    },
-    { type: 'input', label: '房号', name: 'roomId', hidden: true },
-  ],
-)
+  import { useForm } from '@cphayim/element-plus-enhance'
 
-watchEffect(() => {
-  if (formData.value.carMode === 3) {
-    updateItem('roomId', { hidden: false })
-  }
-})
+  const { formData, formItems, formRef } = useForm(
+    {
+      carMode: null,
+      roomId: null,
+    },
+    [
+      {
+        label: '车型',
+        type: 'select',
+        name: 'carMode',
+        options: [
+          { label: '轿车', value: 1 },
+          { label: '三轮车', value: 2 },
+          { label: '跑车', value: 3 },
+          { label: '货车', value: 4 },
+        ],
+      },
+      { type: 'input', label: '房号', name: 'roomId', hidden: true },
+    ],
+  )
+
+  watchEffect(() => {
+    if (formData.value.carMode === 3) {
+      updateItem('roomId', { hidden: false })
+    }
+  })
 </script>
 
 <template>
   <div>
-     <EpeForm
-       ref="formRef"
-       :items="formItems"
-       v-model:data="formData"
-       :labelWidth="100"
-     ></EpeForm>
+    <EpeForm
+      ref="formRef"
+      :items="formItems"
+      v-model:data="formData"
+      :labelWidth="100"
+    ></EpeForm>
   </div>
 </template>
 ```
-
-
 
 ### 字段动态插槽
 
@@ -461,7 +439,7 @@ watchEffect(() => {
 假设配置项是用户名和密码，用户名使用默认的组件行为，而自定义密码的渲染内容
 
 ```typescript
-[
+;[
   { type: 'input', label: '用户名', name: 'username' },
   { type: 'input', label: '密码', name: 'password' },
 ]
@@ -473,7 +451,7 @@ watchEffect(() => {
   :items="formItems"
   v-model:data="formData"
   :labelWidth="100"
-  >
+>
   <template #password="item">
     <div>{{ item.label }}</div>
     <input type="text" v-model="formData.password" />
@@ -483,37 +461,35 @@ watchEffect(() => {
 
 插槽名称就是你希望覆盖的字段名，插槽作用域会将该字段所对应的 `item` 传入，上述例子中，因为 `input` 和 定义的数据在同一组件中，可以直接使用 `v-model`
 
-
-
 ## EpeFormEditor - 表单编辑器组件
 
 `EpeFormEditor` 用于生产提供给 `EpeForm` 消费的表单配置项，具体看顶部 demo
 
->注意：该组件通常是给用户使用的可视化编辑，生成表单配置项，如果结构确定，仍建议开发者手动配置
+> 注意：该组件通常是给用户使用的可视化编辑，生成表单配置项，如果结构确定，仍建议开发者手动配置
 
 ### 最简实例
 
 ```html
 <script setup lang="ts">
-import {
-  EpeFormEditor,
-  type FormItemProps,
-} from '@cphayim/element-plus-enhance'
+  import {
+    EpeFormEditor,
+    type FormItemProps,
+  } from '@cphayim/element-plus-enhance'
 
-const formEditorRef = ref<InstanceType<typeof EpeFormEditor>>()
-const initItems = ref<FormItemProps[]>([
-  { type: 'select', name: 'input_aserdd', label: '选择器' },
-  {
-    type: 'input',
-    name: 'input_aserde',
-    label: '多行输入',
-    inputType: 'textarea',
-  },
-])
+  const formEditorRef = ref<InstanceType<typeof EpeFormEditor>>()
+  const initItems = ref<FormItemProps[]>([
+    { type: 'select', name: 'input_aserdd', label: '选择器' },
+    {
+      type: 'input',
+      name: 'input_aserde',
+      label: '多行输入',
+      inputType: 'textarea',
+    },
+  ])
 
-const handleGetItems = () => {
-  console.log(formEditorRef.value?.getFormItems())
-}
+  const handleGetItems = () => {
+    console.log(formEditorRef.value?.getFormItems())
+  }
 </script>
 
 <template>
@@ -532,8 +508,6 @@ const handleGetItems = () => {
   </div>
 </template>
 ```
-
-
 
 ### 配置项与类型
 
@@ -560,25 +534,18 @@ export type FormEditorProps = {
 }
 ```
 
-
-
 ### 类型控件动态插槽
 
 我们在编辑器右侧提供的“默认编辑面板”（`FormEditorDefaultEditPanel`）的交互配置项无法覆盖到所有业务场景，作为通用组件，也不适合包含特定的业务逻辑
 
 例如你可能需要支持在编辑 `Select ` 控件时不仅支持手填选项（`Options`），还要支持关联某个枚举值或数据库中的字典值，这超出了 `FormEditorDefaultEditPanel` 的职责范围，但是我们提供了类型控件动态插槽，你可以使用它在业务侧解决这个问题
 
-
-
 ```html
 <EpeFormEditor ref="formEditorRef" :init-items="initItems">
   <template #input="{ current, setCurrent }">
-    {{ current.name }}
-    {{ current.label }}
+    {{ current.name }} {{ current.label }}
   </template>
 </EpeFormEditor>
 ```
-
-
 
 这样就完全自定义了 `input` 类型控件的右侧编辑面板，作用域插槽接收 `current` 即是当前中间区域被选中的控件对应的 `item`, 你可以通过调用 `setCurrent` 传入新的 `item` 来修改配置项

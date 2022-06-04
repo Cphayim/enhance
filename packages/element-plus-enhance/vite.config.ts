@@ -29,13 +29,12 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['vue', 'element-plus', 'vuedraggable/src/vuedraggable'],
+      external: ['vue', 'element-plus'],
       output: {
         exports: 'named',
         globals: {
           vue: 'Vue',
           ['element-plus']: 'ElementPlus',
-          vuedraggable: 'draggable',
         },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') {

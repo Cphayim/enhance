@@ -186,4 +186,8 @@ defineExpose({
 .epe-editable-form .epe-form-editor-item {
   flex: 0 0 100%;
 }
+.epe-editable-form .epe-form-item .el-form-item {
+  margin-top: 9px;
+  margin-bottom: 9px;
+}
 </style>

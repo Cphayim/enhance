@@ -66,8 +66,6 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
 
 <style>
 .epe-form-item .el-form-item {
-  margin-top: 14px;
-  margin-bottom: 14px;
   padding-right: 8px;
 }
 .epe-form-item .el-select {

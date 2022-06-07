@@ -65,6 +65,7 @@ export enum FormEditorFeatures {
   Select = 'select',
   Date = 'date',
   Time = 'time',
+  ImageUpload = 'imageUpload',
 }
 
 export type FormEditorProps = {

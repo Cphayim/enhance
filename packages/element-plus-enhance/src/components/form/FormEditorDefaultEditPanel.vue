@@ -245,6 +245,24 @@ const handleOptionsRemove = (index: number) => {
           </el-row>
         </template>
       </template>
+
+      <template v-if="item.type === 'upload'">
+        <el-row class="epe-form-editor-default-config">
+          <div class="epe-form-editor-default-title">数量限制：</div>
+          <el-input
+            type="number"
+            :modelValue="item.uploadLimit"
+            @update:modelValue="(num:string) => handleChange('uploadLimit', num ? parseInt(num): undefined)"
+          />
+        </el-row>
+        <el-row class="epe-form-editor-default-config">
+          <div class="epe-form-editor-default-title">提示文案：</div>
+          <el-input
+            :modelValue="item.uploadTips"
+            @update:modelValue="(val:string) => handleChange('uploadTips', val)"
+          />
+        </el-row>
+      </template>
     </div>
   </div>
 </template>
@@ -256,6 +274,7 @@ const handleOptionsRemove = (index: number) => {
 .epe-form-editor-default-title {
   color: var(--epe-color-text-2);
   margin-bottom: 6px;
+  font-size: 14px;
 }
 .epe-form-editor-default-config-flex {
   display: flex;

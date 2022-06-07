@@ -76,6 +76,13 @@ const genDefaultItemMap: Record<string, () => FormItemProps> = {
     datetimeType: 'time',
     datetimeFormat: 'hh:mm',
   }),
+  [FormEditorFeatures.ImageUpload]: () => ({
+    type: 'upload',
+    label: '图片上传',
+    name: `image_${randomStr(6)}`,
+    uploadLimit: 3,
+    uploadTips: '一些提示文案，比如上传的内容要求',
+  }),
 }
 
 type Category = {
@@ -103,6 +110,10 @@ const categories = ref<Category[]>([
       { label: '时间选择', key: FormEditorFeatures.Time },
     ],
   },
+  {
+    label: '上传型',
+    buttons: [{ label: '图片上传', key: FormEditorFeatures.ImageUpload }],
+  },
 ])
 
 // 点击添加
@@ -117,7 +128,9 @@ const handleClickAdd = (button: Button) => {
 // 拖动添加
 const handleDragAdd = (button: Button) => {
   const genFn = genDefaultItemMap[button.key]
-  return genFn()
+  if (genFn) {
+    return genFn()
+  }
 }
 
 const tips = {

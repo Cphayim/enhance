@@ -44,7 +44,7 @@ const app = createApp(App)
 
 ## VeForm - 表单生成器组件
 
-`VeForm` 是一个约定配置化的表单生成器组件，和 [@cphayim/vant-enhance](https://www.npmjs.com/package/@cphayim/vant-enhance) 中的 `VeForm` 组件一样，遵循了一套配置规则（最小共同能力）。我们使用同一套配置即可在双端生成能力相同的表单而无需顾忌两套 UI 框架的 API 差异。
+`VeForm` 是一个约定配置化的表单生成器组件，和 [@cphayim/element-plus-enhance](https://www.npmjs.com/package/@cphayim/element-plus-enhance) 中的 `EpeForm` 组件一样，遵循了一套配置规则（最小共同能力）。我们使用同一套配置即可在双端生成能力相同的表单而无需顾忌两套 UI 框架的 API 差异。
 
 ### 最简示例
 

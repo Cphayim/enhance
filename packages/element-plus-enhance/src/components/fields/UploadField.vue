@@ -38,7 +38,6 @@ const fileList = computed<FieldUploadFile[]>(() => {
       url,
       name: getFileName(url),
     }))
-  console.log(result)
   return result
 })
 

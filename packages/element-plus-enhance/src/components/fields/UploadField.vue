@@ -32,12 +32,14 @@ const emit = defineEmits<FieldEmits>()
 const fileList = computed<FieldUploadFile[]>(() => {
   if (!props.value) return []
   if (props.uploadStruct === 'object') return props.value as FieldUploadFile[]
-  return (props.value as string)
+  const result = (props.value as string)
     .split(props.uploadStringSeparator)
     .map((url) => ({
       url,
       name: getFileName(url),
     }))
+  console.log(result)
+  return result
 })
 
 const getFileName = (url: string) =>
@@ -87,9 +89,7 @@ const verifyFieldUploadFile = (f: FieldUploadFile): f is FieldUploadFile => {
 // 删除
 const handleRemove: UploadProps['onRemove'] = (file, files) => {
   // 剩余的
-  const rest = files
-    .filter((f) => f.url !== file.url)
-    .map((f) => ({ name: f.name, url: f.url }))
+  const rest = files.map((f) => ({ name: f.name, url: f.url }))
 
   const newValue =
     props.uploadStruct === 'object'
@@ -114,7 +114,7 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
 </script>
 
 <template>
-  <div>
+  <div class="epe-upload">
     <el-upload
       ref="uploadRef"
       action="/"
@@ -123,7 +123,7 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
       :before-upload="uploadValidateWrap"
       :http-request="uploadSendWrap"
       :limit="props.uploadLimit"
-      :before-remove="handleRemove"
+      :on-remove="handleRemove"
       :on-preview="handlePreview"
       list-type="picture-card"
       :on-exceed="handleExceed"
@@ -144,10 +144,11 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
 </template>
 
 <style>
-.is-disabled .el-upload.el-upload--picture-card {
-  display: none;
-}
-.el-upload__tip {
+.epe-upload .el-upload__tip {
   line-height: 20px;
+}
+.epe-upload .el-upload-list__item,
+.epe-upload .el-upload-list--picture-card .el-upload-list__item-actions {
+  transition: none;
 }
 </style>

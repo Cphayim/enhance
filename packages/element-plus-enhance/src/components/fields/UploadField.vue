@@ -87,7 +87,7 @@ const verifyFieldUploadFile = (f: FieldUploadFile): f is FieldUploadFile => {
 }
 
 // 删除
-const handleRemove: UploadProps['onRemove'] = (file, files) => {
+const handleRemove: UploadProps['onRemove'] = (_, files) => {
   // 剩余的
   const rest = files.map((f) => ({ name: f.name, url: f.url }))
 

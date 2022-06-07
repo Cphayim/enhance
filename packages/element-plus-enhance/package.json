@@ -1,10 +1,10 @@
 {
   "name": "@cphayim/element-plus-enhance",
-  "description": "",
+  "description": "element-plus components enhanced",
   "keywords": [],
   "license": "ISC",
   "author": "Cphayim <i@cphayim.me>",
-  "version": "0.1.8",
+  "version": "0.1.12",
   "main": "./dist/element-plus-enhance.cjs.js",
   "module": "./dist/element-plus-enhance.es.mjs",
   "browser": "./dist/element-plus-enhance.umd.js",

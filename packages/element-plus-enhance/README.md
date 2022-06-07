@@ -164,7 +164,7 @@ export type FormItemProps<F = string> = {
 /**
  * 表单项类型
  */
-export type FormItemType = 'input' | 'select' | 'datetime'
+export type FormItemType = 'input' | 'select' | 'datetime' | 'upload'
 ```
 
 `FieldProps` 是通用字段描述类型，和 `@cphayim/vant-enhance` 中的完全一致
@@ -173,7 +173,7 @@ export type FormItemType = 'input' | 'select' | 'datetime'
 
 ```typescript
 export type FieldProps<F = string, E = any> = CommonFieldProps<F, E> &
-  (InputFieldProps | SelectFieldProps | DatetimeFieldProps)
+  (InputFieldProps | SelectFieldProps | DatetimeFieldProps | UploadFieldProps)
 
 /**
  * 通用配置
@@ -312,6 +312,49 @@ type DatetimeFieldProps = PickerCommonFieldProps & {
 }
 
 /**
+ * 上传器类型
+ */
+type UploadFieldProps = {
+  /**
+   * 上传器选项
+   * 默认值: 'object'
+   *
+   * 'object':
+   * 值为 FieldUploadFile[]
+   *
+   * 'string':
+   * 值为 'url1,url2,url3'，组件将从 url 中推断文件名
+   */
+  uploadStruct?: 'object' | 'string'
+  /**
+   * url 分隔符
+   * 仅 uploadStruct 为 'string' 时有效
+   * 默认值 ','
+   */
+  uploadStringSeparator?: string
+  /**
+   * 上传数量限制
+   */
+  uploadLimit?: number
+  /**
+   * 上传器底部提示文案，支持 \n 换行
+   */
+  uploadTips?: string
+  /**
+   * 自定义文件验证器函数
+   *
+   * 返回 true 表示验证通过，字符串为验证失败的提示文字
+   */
+  uploadValidate?: (file: File) => boolean | string
+  /**
+   * 自定义上传请求函数（必传）
+   *
+   * 在该函数内用户需实现文件的上传请求，之后返回一个 Promise<FieldUploadFile>
+   */
+  uploadSend?: (file: File) => Promise<FieldUploadFile>
+}
+
+/**
  * 字段选项，用于 select
  */
 export type FieldOption = {
@@ -327,6 +370,20 @@ export type FieldOption = {
    * 级联选择子项
    */
   children?: FieldOption[]
+}
+
+/**
+ * 已上传的文件结果
+ */
+export type FieldUploadFile = {
+  /**
+   * 文件名
+   */
+  name?: string
+  /**
+   * 文件 url
+   */
+  url: string
 }
 
 /**
@@ -368,6 +425,7 @@ export function useForm<
   updateItem: (name: U, updateItem: Partial<FormItemProps>) => void,
   setOptions: (name: U, options: FieldOption[]) => void,
   formRef: Ref<<InstanceType<typeof EpeForm>>,
+  setFormRef: (instance: FormInstance) => void,
 }
 ```
 
@@ -385,6 +443,7 @@ export function useForm<
   - `updateItem`: 你可以通过传入 `name` 来快速修改其对应 `item` 配置项的部分属性
   - `setOptions`：用于快速设置对应 `name` 的 `select` 选项
   - `formRef`: 表单组件实例
+  - `setFormRef`: 通常不需要，当你在同一个组件中使用了两个表单生成组件时，请将该函数传递给 `:ref="setFormRef"` 来保证唯一性
 
 来看一个例子，假设我们有 `carMode` 和 `roomId` 两个字段的表单，仅当 `carMode` 的值对应跑车时，出现房号输入框：
 
@@ -524,6 +583,7 @@ export enum FormEditorFeatures {
   Select = 'select',
   Date = 'date',
   Time = 'time',
+  ImageUpload = 'imageUpload',
 }
 
 export type FormEditorProps = {

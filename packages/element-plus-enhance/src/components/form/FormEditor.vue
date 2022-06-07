@@ -128,9 +128,7 @@ const handleClickAdd = (button: Button) => {
 // 拖动添加
 const handleDragAdd = (button: Button) => {
   const genFn = genDefaultItemMap[button.key]
-  if (genFn) {
-    return genFn()
-  }
+  return genFn()
 }
 
 const tips = {

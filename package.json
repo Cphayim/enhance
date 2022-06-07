@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "vite --config ./build/vite.base.config.ts",
     "build:vant": "pnpm --filter @cphayim/vant-enhance build",
-    "build:ele": "pnpm --filter @cphayim/element-plus-enhance build"
+    "build:ele": "pnpm --filter @cphayim/element-plus-enhance build",
+    "deploy:pg": "./scripts/deploy-pg.sh"
   },
   "devDependencies": {
     "@ombro/eslint-config-vue3-typescript": "^0.1.0",

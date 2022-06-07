@@ -19,7 +19,7 @@ const { formData, formItems, formRef } = useForm(
     food: null,
     birthday: null,
     clock: null,
-    photos: 'https://fastly.jsdelivr.net/npm/@vant/assets/tree.jpeg',
+    photos: '	https://element-plus.org/images/plant-1.png',
   },
   [
     {

@@ -29,11 +29,6 @@ const props = withDefaults(defineProps<FieldProps>(), {
 
 const emit = defineEmits<FieldEmits>()
 
-const count = computed<number>(() => {
-  if (!props.value) return 0
-  if (props.uploadStruct === 'object') props.value.length
-  return (props.value as string).split(props.uploadStringSeparator).length
-})
 const fileList = computed<FieldUploadFile[]>(() => {
   if (!props.value) return []
   if (props.uploadStruct === 'object') return props.value as FieldUploadFile[]

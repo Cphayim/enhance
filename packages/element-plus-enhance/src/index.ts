@@ -20,3 +20,5 @@ export default ElementPlusEnhance
 
 export * from './components'
 export * from './hooks'
+
+export { readFileContent } from '@/shared/index'

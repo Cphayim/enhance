@@ -13,3 +13,19 @@ export function randomStr(length: number) {
   for (let i = 0; i < length; i++) n += t.charAt(Math.floor(Math.random() * a))
   return n
 }
+
+export function readFileContent(file: File, resultType: 'text' | 'dataUrl') {
+  return new Promise<string>((resolve) => {
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+      resolve((event.target as FileReader).result as string)
+    }
+
+    if (resultType === 'dataUrl') {
+      reader.readAsDataURL(file)
+    } else if (resultType === 'text') {
+      reader.readAsText(file)
+    }
+  })
+}

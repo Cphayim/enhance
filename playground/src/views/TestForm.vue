@@ -19,7 +19,7 @@ const { formData, formItems, formRef } = useForm(
     food: null,
     birthday: null,
     clock: null,
-    photos: null,
+    photos: 'https://fastly.jsdelivr.net/npm/@vant/assets/tree.jpeg',
   },
   [
     {
@@ -108,8 +108,6 @@ const { formData, formItems, formRef } = useForm(
       label: '照片',
       type: 'upload',
       name: 'photos',
-      uploadStruct: 'string',
-      uploadStringSeparator: ',',
       uploadLimit: 3,
       uploadTips: '只能上传 3 张图片\n图片文件大小不能超过 300kb',
     },
@@ -117,22 +115,20 @@ const { formData, formItems, formRef } = useForm(
   {
     defaultProps: {
       align: 'right',
+      uploadStruct: 'string',
+      uploadStringSeparator: ',',
       uploadValidate: (file: File) => {
         if (file.size / 1024 > 300) {
           return '图片大小不能超过 300k'
         }
         return true
       },
-      uploadSend: (file: File) => {
+      uploadSend: async (file: File) => {
         return { url: URL.createObjectURL(file) }
       },
     },
   },
 )
-
-watchEffect(() => {
-  console.log(formData.value.photos)
-})
 
 const handleSubmit = async () => {
   try {

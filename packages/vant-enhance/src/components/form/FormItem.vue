@@ -3,7 +3,12 @@ import { computed } from 'vue'
 import { useVModel } from '@vueuse/core'
 
 import type { FormItemType } from './types'
-import { VeInputField, VeSelectField, VeDatetimeField } from '../fields'
+import {
+  VeInputField,
+  VeSelectField,
+  VeDatetimeField,
+  VeUploadField,
+} from '../fields'
 
 defineOptions({ name: 'VeFormItem', inheritAttrs: false })
 
@@ -20,6 +25,7 @@ const CompMap: Record<FormItemType, any> = {
   input: VeInputField,
   select: VeSelectField,
   datetime: VeDatetimeField,
+  upload: VeUploadField,
 }
 const comp = computed(() => CompMap[props.type])
 const _value = useVModel(props, 'value', emit)

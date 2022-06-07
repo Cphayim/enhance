@@ -41,7 +41,12 @@ export function useForm<
     updateItem(name, { options })
   }
 
-  const formRef = ref<InstanceType<typeof Form>>()
+  type FormInstance = InstanceType<typeof Form>
+  const formRef = ref<FormInstance>()
+  const setFormRef = (instance: FormInstance) => {
+    formRef.value = instance
+  }
+
   return {
     formData,
     formItems,
@@ -49,5 +54,6 @@ export function useForm<
     updateItem,
     setOptions,
     formRef,
+    setFormRef,
   }
 }

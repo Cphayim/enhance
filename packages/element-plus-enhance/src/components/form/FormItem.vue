@@ -8,6 +8,7 @@ import {
   EpeInputField,
   EpeSelectField,
   EpeDatetimeField,
+  EpeUploadField,
 } from '../fields'
 
 defineOptions({ name: 'EpeFormItem', inheritAttrs: false })
@@ -32,6 +33,7 @@ const CompMap: Record<FormItemType, any> = {
   input: EpeInputField,
   select: EpeSelectField,
   datetime: EpeDatetimeField,
+  upload: EpeUploadField,
 }
 const comp = computed(() => CompMap[props.type])
 const _value = useVModel(props, 'value', emit)

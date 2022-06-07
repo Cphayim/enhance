@@ -2,17 +2,21 @@
 // 这样打包时，我们的组件类型中不会出现 element-plus 的类型
 // 在组件中 import element-plus 的组件打包时会导致类型问题，无法生成类型文件
 
-export { ElButton } from 'element-plus'
+export { ElButton, ElIcon, ElMessage, ElNotification } from 'element-plus'
 import 'element-plus/es/components/button/style/css'
+import 'element-plus/es/components/icon/style/css'
+import 'element-plus/es/components/message/style/css'
+import 'element-plus/es/components/notification/style/css'
 
 export { ElForm, ElRow, ElCol } from 'element-plus'
 import 'element-plus/es/components/form/style/css'
 import 'element-plus/es/components/row/style/css'
 import 'element-plus/es/components/col/style/css'
 
-export { ElFormItem, ElPopover } from 'element-plus'
+export { ElFormItem, ElPopover, ElDialog } from 'element-plus'
 import 'element-plus/es/components/form-item/style/css'
 import 'element-plus/es/components/popover/style/css'
+import 'element-plus/es/components/dialog/style/css'
 
 export { ElDatePicker, ElTimePicker } from 'element-plus'
 import 'element-plus/es/components/date-picker/style/css'

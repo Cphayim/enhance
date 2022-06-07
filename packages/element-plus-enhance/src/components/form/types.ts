@@ -3,7 +3,7 @@ import { type FieldProps } from '../fields'
 /**
  * 表单项类型
  */
-export type FormItemType = 'input' | 'select' | 'datetime'
+export type FormItemType = 'input' | 'select' | 'datetime' | 'upload'
 
 export type FormItemProps<F = string> = {
   /**

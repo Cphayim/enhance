@@ -114,6 +114,45 @@ export type FieldProps<F = string, E = any> = {
    * 最大日期
    */
   maxDate?: Date
+
+  // UploadField
+  /**
+   * 上传器选项
+   * 默认值: 'object'
+   *
+   * 'object':
+   * 值为 FieldUploadFile[]
+   *
+   * 'string':
+   * 值为 'url1,url2,url3'，组件将从 url 中推断文件名
+   */
+  uploadStruct?: 'object' | 'string'
+  /**
+   * url 分隔符
+   * 仅 uploadStruct 为 'string' 时有效
+   * 默认值 ','
+   */
+  uploadStringSeparator?: string
+  /**
+   * 上传数量限制
+   */
+  uploadLimit?: number
+  /**
+   * 上传器底部提示文案，支持 \n 换行
+   */
+  uploadTips?: string
+  /**
+   * 自定义文件验证器函数
+   *
+   * 返回 true 表示验证通过，字符串为验证失败的提示文字
+   */
+  uploadValidate?: (file: File) => boolean | string
+  /**
+   * 自定义上传请求函数（必传）
+   *
+   * 在该函数内用户需实现文件的上传请求，之后返回一个 Promise<FieldUploadFile>
+   */
+  uploadSend?: (file: File) => Promise<FieldUploadFile>
 }
 
 /**
@@ -136,6 +175,20 @@ export type FieldOption = {
    * 级联选择子项
    */
   children?: FieldOption[]
+}
+
+/**
+ * 已上传的文件结果
+ */
+export type FieldUploadFile = {
+  /**
+   * 文件名
+   */
+  name?: string
+  /**
+   * 文件 url
+   */
+  url: string
 }
 
 /**

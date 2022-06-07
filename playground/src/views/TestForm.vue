@@ -19,6 +19,7 @@ const { formData, formItems, formRef } = useForm(
     food: null,
     birthday: null,
     clock: null,
+    photos: null,
   },
   [
     {
@@ -103,13 +104,35 @@ const { formData, formItems, formRef } = useForm(
       datetimeType: 'time',
       col: 12,
     },
+    {
+      label: '照片',
+      type: 'upload',
+      name: 'photos',
+      uploadStruct: 'string',
+      uploadStringSeparator: ',',
+      uploadLimit: 3,
+      uploadTips: '只能上传 3 张图片\n图片文件大小不能超过 300kb',
+    },
   ],
   {
     defaultProps: {
       align: 'right',
+      uploadValidate: (file: File) => {
+        if (file.size / 1024 > 300) {
+          return '图片大小不能超过 300k'
+        }
+        return true
+      },
+      uploadSend: (file: File) => {
+        return { url: URL.createObjectURL(file) }
+      },
     },
   },
 )
+
+watchEffect(() => {
+  console.log(formData.value.photos)
+})
 
 const handleSubmit = async () => {
   try {

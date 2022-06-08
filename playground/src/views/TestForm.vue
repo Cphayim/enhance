@@ -4,8 +4,6 @@
 -->
 
 <script setup lang="ts">
-import dayjs from 'dayjs'
-
 import { useForm } from '@cphayim/element-plus-enhance'
 import consola from 'consola'
 // import { useForm } from '@cphayim/vant-enhance'
@@ -19,7 +17,7 @@ const { formData, formItems, formRef } = useForm(
     food: null,
     birthday: null,
     clock: null,
-    photos: '	https://element-plus.org/images/plant-1.png',
+    photos: 'https://element-plus.org/images/plant-1.png',
   },
   [
     {

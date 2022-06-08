@@ -11,7 +11,7 @@ type UseFormOptions = {
 
 export function useForm<
   T extends Record<string, any>,
-  U = IsNotEmptyObject<{}> extends false ? keyof T : string,
+  U = IsNotEmptyObject<T> extends false ? keyof T : string,
 >(originData: T, items: FormItemProps<U>[], options: UseFormOptions = {}) {
   // 表单数据 v-model:values
   const formData = ref(originData)

@@ -1,6 +1,6 @@
 # @cphayim/element-plus-enhance
 
-[![npm package](https://badgen.net/npm/v/@vrn-deco/cli)](https://www.npmjs.com/package/@cphayim/element-plus-enhance)
+[![npm package](https://badgen.net/npm/v/@cphayim/element-plus-enhance)](https://www.npmjs.com/package/@cphayim/element-plus-enhance)
 [![pnpm](https://img.shields.io/badge/maintained%20with-pnpm-f49033.svg)](https://pnpm.io/)
 
 该包是针对 `element-plus` 进行的上层封装，目的是为提供双端（PC，移动）一致的配置来优化开发体验和提升效率。

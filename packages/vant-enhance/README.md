@@ -5,11 +5,9 @@
 
 该包是针对 `vant` 进行的上层封装，目的是为提供双端（PC，移动）一致的配置来优化开发体验和提升效率。
 
-Demo: http://enhance.vrndeco.cn/test-form-editor
+Demo: http://enhance.vrndeco.cn
 
 PC 端对应包：[@cphayim/element-plus-enhance](https://www.npmjs.com/package/@cphayim/element-plus-enhance)
-
-
 
 [TOC]
 
@@ -34,10 +32,7 @@ npm i @cphayim/vant-enhance
 import VantEnhance from '@cphayim/vant-enhance'
 import '@cphayim/vant-enhance/style'
 
-const app = createApp(App)
-  .use(VantEnhance)
-  .mount('#app')
-
+const app = createApp(App).use(VantEnhance).mount('#app')
 ```
 
 你无需在项目中全量安装 `vant`，依然可以使用按需导入或自动导入。事实上此包中也是按需导入了使用到的 `vant`的相关组件与样式，因此全量安装此包不会对你的项目体积产生较大影响。
@@ -52,41 +47,41 @@ const app = createApp(App)
 
 ```html
 <script setup lang="ts">
-import { useForm } from '@cphayim/vant-enhance'
-  
-const { formData, formItems, formRef } = useForm(
-  {
-    username: null,
-    message: null,
-  },
-  [
-    { type: 'input', label: '用户名', name: 'username' },
-    { type: 'input', label: '留言', name: 'message' },
-  ],
-)
+  import { useForm } from '@cphayim/vant-enhance'
 
-const handleSubmit = async () => {
-  try {
-    await formRef.value?.validate()
-    console.log(formData.value)
-    // fetch('/form', { method: 'POST', body: JSON.stringify(formData.value) })
-  } catch (error) {
-    console.error(error)
+  const { formData, formItems, formRef } = useForm(
+    {
+      username: null,
+      message: null,
+    },
+    [
+      { type: 'input', label: '用户名', name: 'username' },
+      { type: 'input', label: '留言', name: 'message' },
+    ],
+  )
+
+  const handleSubmit = async () => {
+    try {
+      await formRef.value?.validate()
+      console.log(formData.value)
+      // fetch('/form', { method: 'POST', body: JSON.stringify(formData.value) })
+    } catch (error) {
+      console.error(error)
+    }
   }
-}
 </script>
 
 <template>
   <div>
-     <VeForm
-       ref="formRef"
-       :items="formItems"
-       v-model:data="formData"
-       :labelWidth="100"
-     ></VeForm>
-     <el-button @click="handleSubmit" type="primary" size="large">
-       提交
-     </el-button>
+    <VeForm
+      ref="formRef"
+      :items="formItems"
+      v-model:data="formData"
+      :labelWidth="100"
+    ></VeForm>
+    <el-button @click="handleSubmit" type="primary" size="large">
+      提交
+    </el-button>
   </div>
 </template>
 ```
@@ -104,19 +99,17 @@ const formData = ref({
   message: null,
 })
 // 使用 FormItemProps 进行类型提示和自动完成
-const formItems = ref<FormItemProps[]>(
-	[
-    { type: 'input', label: '用户名', name: 'username' },
-    { type: 'input', label: '留言', name: 'message' },
-  ]
-)
+const formItems = ref<FormItemProps[]>([
+  { type: 'input', label: '用户名', name: 'username' },
+  { type: 'input', label: '留言', name: 'message' },
+])
 ```
 
 ### 配置项与类型
 
 `VeForm` 及其子组件所需的 `props`
 
- ```typescript
+```typescript
 /**
  * VeForm 组件 props
  */
@@ -131,7 +124,6 @@ export type FormProps = {
   data: Record<string, any>
 }
 
-
 /**
  * 表单项 props
  */
@@ -141,13 +133,12 @@ export type FormItemProps<F = string> = {
    */
   type: FormItemType
 } & FieldProps<F> // FieldProps 是通用字段描述类型，和 @cphayim/vant-enhance 中的完全一致
-  
+
 /**
  * 表单项类型
  */
 export type FormItemType = 'input' | 'select' | 'datetime' | 'upload'
-
- ```
+```
 
 `FieldProps` 是通用字段描述类型，和 `@cphayim/element-plus-enhance` 中的完全一致
 
@@ -388,10 +379,7 @@ export type FieldRule = {
    */
   message?: string
 }
-
 ```
-
-
 
 ### useForm 钩子
 
@@ -414,9 +402,8 @@ export function useForm<
 }
 ```
 
-
-
 - 入参:
+
   - `originData`: 用于绑定数据的对象，可以是一个空对象
   - `items`: 表单配置项数组
   - `options`: 其它选项
@@ -431,55 +418,51 @@ export function useForm<
   - `formRef`: 表单组件实例
   - `setFormRef`: 通常不需要，当你在同一个组件中使用了两个表单生成组件时，请将该函数传递给 `:ref="setFormRef"` 来保证唯一性
 
-
-
 来看一个例子，假设我们有 `carMode` 和 `roomId` 两个字段的表单，仅当 `carMode` 的值对应跑车时，出现房号输入框：
 
 ```html
 <script setup lang="ts">
-import { useForm } from '@cphayim/vant-enhance'
-  
-const { formData, formItems, formRef } = useForm(
-  {
-    carMode: null,
-    roomId: null,
-  },
-  [
-    {
-      label: '车型',
-      type: 'select',
-      name: 'carMode',
-      options: [
-        { label: '轿车', value: 1 },
-        { label: '三轮车', value: 2 },
-        { label: '跑车', value: 3 },
-        { label: '货车', value: 4 },
-      ],
-    },
-    { type: 'input', label: '房号', name: 'roomId', hidden: true },
-  ],
-)
+  import { useForm } from '@cphayim/vant-enhance'
 
-watchEffect(() => {
-  if (formData.value.carMode === 3) {
-    updateItem('roomId', { hidden: false })
-  }
-})
+  const { formData, formItems, formRef } = useForm(
+    {
+      carMode: null,
+      roomId: null,
+    },
+    [
+      {
+        label: '车型',
+        type: 'select',
+        name: 'carMode',
+        options: [
+          { label: '轿车', value: 1 },
+          { label: '三轮车', value: 2 },
+          { label: '跑车', value: 3 },
+          { label: '货车', value: 4 },
+        ],
+      },
+      { type: 'input', label: '房号', name: 'roomId', hidden: true },
+    ],
+  )
+
+  watchEffect(() => {
+    if (formData.value.carMode === 3) {
+      updateItem('roomId', { hidden: false })
+    }
+  })
 </script>
 
 <template>
   <div>
-     <VeForm
-       ref="formRef"
-       :items="formItems"
-       v-model:data="formData"
-       :labelWidth="100"
-     ></VeForm>
+    <VeForm
+      ref="formRef"
+      :items="formItems"
+      v-model:data="formData"
+      :labelWidth="100"
+    ></VeForm>
   </div>
 </template>
 ```
-
-
 
 ### 字段动态插槽
 
@@ -488,7 +471,7 @@ watchEffect(() => {
 假设配置项是用户名和密码，用户名使用默认的组件行为，而自定义密码的渲染内容
 
 ```typescript
-[
+;[
   { type: 'input', label: '用户名', name: 'username' },
   { type: 'input', label: '密码', name: 'password' },
 ]
@@ -500,7 +483,7 @@ watchEffect(() => {
   :items="formItems"
   v-model:data="formData"
   :labelWidth="100"
-  >
+>
   <template #password="item">
     <div>{{ item.label }}</div>
     <input type="text" v-model="formData.password" />
@@ -509,4 +492,3 @@ watchEffect(() => {
 ```
 
 插槽名称就是你希望覆盖的字段名，插槽作用域会将该字段所对应的 `item` 传入，上述例子中，因为 `input` 和 定义的数据在同一组件中，可以直接使用 `v-model`
-

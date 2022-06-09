@@ -4,6 +4,7 @@ import type { IsNotEmptyObject } from '@/shared/utils'
 import type { FieldOption } from '../components/fields'
 import type { FormItemProps } from '../components/form'
 import Form from '../components/form/Form.vue'
+import { deepClone } from '@/shared/index'
 
 type UseFormOptions = {
   defaultProps?: Partial<Omit<FormItemProps, 'type | name | value'>>
@@ -14,7 +15,7 @@ export function useForm<
   U = IsNotEmptyObject<T> extends false ? keyof T : string,
 >(originData: T, items: FormItemProps<U>[], options: UseFormOptions = {}) {
   // 表单数据 v-model:values
-  const formData = ref(originData)
+  const formData = ref(deepClone(originData))
   // 表单配置项 :items, 和 defaultProps 合并
   const formItems = ref(
     items.map((item) => ({ ...options.defaultProps, ...item })),
@@ -27,6 +28,10 @@ export function useForm<
     })
     return m as Map<U, FormItemProps<U>>
   })
+
+  const resetData = () => {
+    formData.value = deepClone(originData)
+  }
 
   const getItem = (name: U) => map.value.get(name) as FormItemProps<U>
 
@@ -50,6 +55,7 @@ export function useForm<
   return {
     formData,
     formItems,
+    resetData,
     getItem,
     updateItem,
     setOptions,

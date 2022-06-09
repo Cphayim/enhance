@@ -5,7 +5,7 @@
 
 该包是针对 `element-plus` 进行的上层封装，目的是为提供双端（PC，移动）一致的配置来优化开发体验和提升效率。
 
-Demo: http://enhance.vrndeco.cn/test-form-editor
+Demo: http://enhance.vrndeco.cn
 
 移动端对应包： [@cphayim/vant-enhance](https://www.npmjs.com/package/@cphayim/vant-enhance)
 

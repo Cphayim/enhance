@@ -82,8 +82,8 @@ importers:
 
   playground:
     specifiers:
-      '@cphayim/element-plus-enhance': workspace:^0.0.0
-      '@cphayim/vant-enhance': workspace:^0.1.6
+      '@cphayim/element-plus-enhance': workspace:*
+      '@cphayim/vant-enhance': workspace:*
       consola: ^2.15.3
       dayjs: ^1.11.2
       element-plus: ^2.2.2

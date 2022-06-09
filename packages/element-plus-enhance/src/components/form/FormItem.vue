@@ -84,7 +84,6 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
   box-sizing: border-box;
 }
 .epe-form-item {
-  overflow: hidden;
   position: relative;
 }
 .epe-form-item-edit-mode {

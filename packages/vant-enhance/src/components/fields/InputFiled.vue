@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { type Ref } from 'vue'
-import { CellGroup as VanCellGroup, Field as VanField } from 'vant'
-import 'vant/es/cell-group/style/index'
-import 'vant/es/field/style/index'
 
 import { useVModel } from '@vueuse/core'
 import type { FieldEmits } from './types'

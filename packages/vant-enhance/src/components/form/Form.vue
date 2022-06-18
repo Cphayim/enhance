@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Form as VanForm, type FormInstance } from 'vant'
-import 'vant/es/form/style/index'
+import { type FormInstance } from 'vant'
 
 import type { FormProps } from './types'
 import FormItem from './FormItem.vue'

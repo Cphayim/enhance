@@ -1,10 +1,16 @@
 import type { App, Plugin } from 'vue'
+import { isComponent } from '@/shared/index'
 import * as componentMap from './components'
+import * as depComponentMap from './vant'
 
 const VantEnhance: Plugin = {
   install(app: App) {
-    const components = Object.values(componentMap)
-    components.forEach((component) => component.install?.(app))
+    // 安装依赖的组件（element-plus 在组件内直接引入打包会出现类型问题，所以在此安装）
+    Object.values(depComponentMap).forEach((component) => app.use(component))
+    // 我们的组件
+    Object.values(componentMap).forEach(
+      (component) => isComponent(component) && app.use(component),
+    )
   },
 }
 

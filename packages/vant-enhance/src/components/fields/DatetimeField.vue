@@ -1,16 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs'
 import { ref, computed } from 'vue'
-import {
-  CellGroup as VanCellGroup,
-  Field as VanField,
-  Popup as VanPopup,
-  DatetimePicker as VanDatetimePicker,
-} from 'vant'
-import 'vant/es/cell-group/style/index'
-import 'vant/es/field/style/index'
-import 'vant/es/popup/style/index'
-import 'vant/es/datetime-picker/style/index'
 
 import type { FieldEmits } from './types'
 import type { FieldProps } from '@/shared/types'

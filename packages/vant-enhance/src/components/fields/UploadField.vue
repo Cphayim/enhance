@@ -5,10 +5,7 @@
 -->
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Uploader as VanUploader, CellGroup as VanCellGroup, Toast } from 'vant'
-import 'vant/es/uploader/style/index'
-import 'vant/es/cell-group/style/index'
-import 'vant/es/toast/style/index'
+import { Toast } from 'vant'
 
 import { randomStr } from '@/shared/index'
 import type { FieldProps, FieldUploadFile } from '@/shared/types'

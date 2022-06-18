@@ -1,15 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect } from 'vue'
-import {
-  CellGroup as VanCellGroup,
-  Field as VanField,
-  Popup as VanPopup,
-  Picker as VanPicker,
-} from 'vant'
-import 'vant/es/cell-group/style/index'
-import 'vant/es/field/style/index'
-import 'vant/es/popup/style/index'
-import 'vant/es/picker/style/index'
 
 import { isNone } from '../../../../shared'
 import type { FieldEmits } from './types'

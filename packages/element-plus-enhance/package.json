@@ -14,7 +14,8 @@
       "import": "./dist/element-plus-enhance.es.mjs",
       "require": "./dist/element-plus-enhance.cjs.js"
     },
-    "./style": "./dist/element-plus-enhance.css"
+    "./style": "./dist/element-plus-enhance.css",
+    "./style.css": "./dist/element-plus-enhance.css"
   },
   "files": [
     "dist/"

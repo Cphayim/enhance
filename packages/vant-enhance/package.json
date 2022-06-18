@@ -1,6 +1,6 @@
 {
   "name": "@cphayim/vant-enhance",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "vant components enhanced",
   "keywords": [],
   "author": "Cphayim <i@cphayim.me>",
@@ -14,7 +14,8 @@
       "import": "./dist/vant-enhance.es.mjs",
       "require": "./dist/vant-enhance.cjs.js"
     },
-    "./style": "./dist/vant-enhance.css"
+    "./style": "./dist/vant-enhance.css",
+    "./style.css": "./dist/vant-enhance.css"
   },
   "files": [
     "dist/"

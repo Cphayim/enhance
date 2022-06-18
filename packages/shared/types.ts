@@ -90,6 +90,11 @@ export type FieldProps<F = string, E = any> = {
    * @access element-plus
    */
   selectMultiple?: boolean
+  /**
+   * 选择器是否支持搜索过滤
+   * @access element-plus
+   */
+  selectFilterable?: boolean
 
   // DatetimeField
   /**

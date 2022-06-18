@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<FieldProps>(), {
   options: () => [],
   selectType: 'select',
   selectMultiple: false,
+  selectFilterable: false,
 })
 
 const emit = defineEmits<FieldEmits>()
@@ -46,6 +47,7 @@ const _cascaderProps = computed(() => {
       :readonly="props.readonly"
       :disabled="props.disabled"
       :multiple="selectMultiple"
+      :filterable="selectFilterable"
     >
       <el-option
         v-for="option in props.options"

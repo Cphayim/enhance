@@ -150,4 +150,7 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
 .epe-upload .el-upload-list--picture-card .el-upload-list__item-actions {
   transition: none;
 }
+.epe-upload .el-icon--close-tip {
+  display: none;
+}
 </style>

@@ -147,6 +147,7 @@ defineExpose({
       group="people"
       item-key="name"
       tag="el-row"
+      class="epe-editable-form-row"
       :gutter="props.colGutter * 2"
       @change="handleDragLog"
       @add="handleDragAdd"
@@ -168,9 +169,6 @@ defineExpose({
               @edit:remove="handleRemove(index)"
               @edit:copy="handleCopy(index)"
             >
-              <template #default="itemSlotScope">
-                <slot :name="item.name" v-bind="itemSlotScope" />
-              </template>
             </FormItem>
           </div>
         </el-col>
@@ -187,7 +185,12 @@ defineExpose({
   flex: 0 0 100%;
 }
 .epe-editable-form .epe-form-item .el-form-item {
-  margin-top: 9px;
-  margin-bottom: 9px;
+  margin: 0;
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+.epe-editable-form-row {
+  /* 方便拖放到底部 */
+  padding-bottom: 50px;
 }
 </style>

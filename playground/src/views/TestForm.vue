@@ -52,6 +52,7 @@ const { formData, formItems, formRef } = useForm(
         { label: '跑车', value: 3 },
         { label: '货车', value: 4 },
       ],
+      selectFilterable: true,
     },
     {
       label: '食物',

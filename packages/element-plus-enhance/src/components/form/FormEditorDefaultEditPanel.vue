@@ -71,7 +71,12 @@ const handleOptionsRemove = (index: number) => {
     <div class="epe-form-editor-default-category">
       <!-- name：如果是自动生成则只读 -->
       <el-row class="epe-form-editor-default-config">
-        <div class="epe-form-editor-default-title">字段名：</div>
+        <div class="epe-form-editor-default-title">
+          字段名：
+          <span class="epe-form-editor-default-title-tip">
+            （唯一键，自动生成）
+          </span>
+        </div>
         <el-input
           :modelValue="item.name"
           @update:modelValue="(val:string) => handleChange('name', val)"
@@ -272,9 +277,16 @@ const handleOptionsRemove = (index: number) => {
   margin-bottom: 10px;
 }
 .epe-form-editor-default-title {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   color: var(--epe-color-text-2);
   margin-bottom: 6px;
   font-size: 14px;
+}
+.epe-form-editor-default-title-tip {
+  font-size: 12px;
+  color: #999;
 }
 .epe-form-editor-default-config-flex {
   display: flex;

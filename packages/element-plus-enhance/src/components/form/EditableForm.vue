@@ -191,6 +191,6 @@ defineExpose({
 }
 .epe-editable-form-row {
   /* 方便拖放到底部 */
-  padding-bottom: 50px;
+  padding-bottom: 100px;
 }
 </style>

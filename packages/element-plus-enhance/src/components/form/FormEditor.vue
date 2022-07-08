@@ -202,6 +202,7 @@ defineExpose({
 
 <style>
 .epe-form-editor-tip {
+  margin: 16px auto;
   font-size: 14px;
   color: rgb(24, 126, 118);
   padding: 4px;

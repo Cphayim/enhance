@@ -70,12 +70,14 @@ importers:
     specifiers:
       '@vueuse/core': ^8.5.0
       dayjs: ^1.11.2
+      postcss-px-to-viewport: ^1.1.1
       unplugin-vue-define-options: ^0.6.1
       vant: ^3.4.9
       vue: ^3.2.33
     devDependencies:
       '@vueuse/core': 8.5.0_vue@3.2.33
       dayjs: 1.11.2
+      postcss-px-to-viewport: 1.1.1
       unplugin-vue-define-options: 0.6.1_vue@3.2.33
       vant: 3.4.9_vue@3.2.33
       vue: 3.2.33
@@ -1745,6 +1747,11 @@ packages:
       boolbase: 1.0.0
     dev: true
 
+  /object-assign/4.1.1:
+    resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
+    engines: {node: '>=0.10.0'}
+    dev: true
+
   /once/1.4.0:
     resolution: {integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=}
     dependencies:
@@ -1799,6 +1806,13 @@ packages:
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+    dev: true
+
+  /postcss-px-to-viewport/1.1.1:
+    resolution: {integrity: sha512-2x9oGnBms+e0cYtBJOZdlwrFg/mLR4P1g2IFu7jYKvnqnH/HLhoKyareW2Q/x4sg0BgklHlP1qeWo2oCyPm8FQ==}
+    dependencies:
+      object-assign: 4.1.1
+      postcss: 8.4.13
     dev: true
 
   /postcss-selector-parser/6.0.10:

@@ -1,4 +1,4 @@
-import { withInstall } from '../../../../shared'
+import { withInstall } from '@/shared/index'
 
 import InputField from './InputFiled.vue'
 import SelectField from './SelectField.vue'

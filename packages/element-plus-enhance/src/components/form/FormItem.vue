@@ -34,6 +34,7 @@ const CompMap: Record<FormItemType, any> = {
   select: EpeSelectField,
   datetime: EpeDatetimeField,
   upload: EpeUploadField,
+  'biz-placeholder': null,
 }
 const comp = computed(() => CompMap[props.type])
 const _value = useVModel(props, 'value', emit)
@@ -46,7 +47,12 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
   <div ref="target" class="epe-form-item">
     <el-form-item :label="field.label" :prop="field.name" :rules="field.rules">
       <slot v-bind="field" :value="_value">
-        <component :is="comp" v-bind="$attrs" v-model:value="_value" />
+        <div v-if="props.type === 'biz-placeholder'">
+          {{ ($attrs.extra as any)?.bizLabel || '未知'
+
+          }}（业务组件将在使用时显示）
+        </div>
+        <component v-else :is="comp" v-bind="$attrs" v-model:value="_value" />
       </slot>
     </el-form-item>
 
@@ -57,8 +63,6 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
     >
       <!-- 操作按钮 -->
       <div v-show="edit.editing" class="epe-form-item-edit-opt-box" @click.stop>
-        <!-- <div @click="$emit('edit:up')">上</div> -->
-        <!-- <div @click="$emit('edit:down')">下</div> -->
         <div @click="$emit('edit:copy')">复制</div>
         <div @click="$emit('edit:remove')">删除</div>
       </div>

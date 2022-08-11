@@ -11,16 +11,29 @@ import { randomStr } from '@/shared/index'
 
 import EpeEditableForm from './EditableForm.vue'
 import EpeFormEditorDefaultEditPanel from './FormEditorDefaultEditPanel.vue'
-import { FormEditorFeatures, FormEditorProps, FormItemProps } from './types'
+import {
+  BizFeatureOptions,
+  FormEditorFeatures,
+  FormEditorProps,
+  FormItemProps,
+} from './types'
+import {
+  transformBizPlaceHolderToReal,
+  transformBizRealToPlaceHolder,
+} from './utils'
 
 defineOptions({ name: 'EpeFormEditor' })
 const props = withDefaults(defineProps<FormEditorProps>(), {
   initItems: () => [],
+  bizFeatures: () => [],
 })
 
 const formRef = ref<InstanceType<typeof EpeEditableForm>>()
 const formData = ref<Record<string, any>>({})
-const formItems = ref<FormItemProps[]>([...props.initItems])
+const formItems = ref<FormItemProps[]>(
+  // 将 initItem 中的 biz 真实配置转回 bizPlaceholder 配置
+  transformBizRealToPlaceHolder(props.initItems, props.bizFeatures),
+)
 
 // 当前正在编辑项的索引
 const currentIndex = ref(-1)
@@ -39,7 +52,7 @@ const handleChecked = (index: number) => {
   // console.log(formItems.value[index])
 }
 
-const genDefaultItemMap: Record<string, () => FormItemProps> = {
+const genDefaultItemMap: Record<string, (...args: any[]) => FormItemProps> = {
   [FormEditorFeatures.Input]: () => ({
     type: 'input',
     label: '单行输入',
@@ -83,6 +96,17 @@ const genDefaultItemMap: Record<string, () => FormItemProps> = {
     uploadLimit: 3,
     uploadTips: '一些提示文案，比如上传的内容要求',
   }),
+  // 业务型
+  [FormEditorFeatures.Biz]: (bizFeature: BizFeatureOptions) => ({
+    type: 'biz-placeholder',
+    label: '业务组件',
+    name: `biz_${randomStr(6)}`,
+    extra: {
+      biz: true,
+      bizName: bizFeature.bizName,
+      bizLabel: bizFeature.bizLabel,
+    },
+  }),
 }
 
 type Category = {
@@ -92,6 +116,7 @@ type Category = {
 type Button = {
   label: string
   key: string
+  bizFeature?: BizFeatureOptions
 }
 
 const categories = ref<Category[]>([
@@ -114,21 +139,33 @@ const categories = ref<Category[]>([
     label: '上传型',
     buttons: [{ label: '图片上传', key: FormEditorFeatures.ImageUpload }],
   },
+  {
+    label: '业务/组合型',
+    buttons: props.bizFeatures.map((bizFeature) => ({
+      label: bizFeature.bizLabel,
+      key: FormEditorFeatures.Biz,
+      bizFeature,
+    })),
+  },
 ])
 
 // 点击添加
 const handleClickAdd = (button: Button) => {
   const genFn = genDefaultItemMap[button.key]
   if (genFn) {
-    const item = genFn()
-    formItems.value.push(item)
+    const item = genFn(button.bizFeature)
+    if (Array.isArray(item)) {
+      formItems.value.push(...item)
+    } else {
+      formItems.value.push(item)
+    }
     formRef.value?.setCurrent(formItems.value.length - 1)
   }
 }
 // 拖动添加
 const handleDragAdd = (button: Button) => {
   const genFn = genDefaultItemMap[button.key]
-  return genFn()
+  return genFn(button.bizFeature)
 }
 
 const tips = {
@@ -137,7 +174,8 @@ const tips = {
     '点击控件：选中控件进入编辑，右下角按钮可复制或删除控件，右侧栏可编辑属性\n拖动控件：调整控件在表单中的顺序',
 }
 
-const getFormItems = () => formItems.value
+const getFormItems = () =>
+  transformBizPlaceHolderToReal(formItems.value, props.bizFeatures)
 
 defineExpose({
   getFormItems,
@@ -149,28 +187,26 @@ defineExpose({
     <!-- 左侧选择控件区 -->
     <div class="epe-form-editor-l-side">
       <pre class="epe-form-editor-tip">{{ tips.left }}</pre>
-      <div
-        v-for="category in categories"
-        :key="category.label"
-        class="epe-form-editor-category"
-      >
-        <div class="epe-form-editor-title">{{ category.label }}</div>
-        <draggable
-          v-model="category.buttons"
-          :group="{ name: 'people', pull: 'clone', put: false }"
-          :sort="false"
-          :clone="handleDragAdd"
-          item-key="key"
-          ghost-class="epe-form-editor-item-ghost"
-          class="epe-form-editor-list"
-        >
-          <template #item="{ element: button }">
-            <div @click="handleClickAdd(button)" class="epe-form-editor-item">
-              {{ button.label }}
-            </div>
-          </template>
-        </draggable>
-      </div>
+      <template v-for="category in categories" :key="category.label">
+        <div v-if="category.buttons.length" class="epe-form-editor-category">
+          <div class="epe-form-editor-title">{{ category.label }}</div>
+          <draggable
+            v-model="category.buttons"
+            :group="{ name: 'people', pull: 'clone', put: false }"
+            :sort="false"
+            :clone="handleDragAdd"
+            item-key="key"
+            ghost-class="epe-form-editor-item-ghost"
+            class="epe-form-editor-list"
+          >
+            <template #item="{ element: button }">
+              <div @click="handleClickAdd(button)" class="epe-form-editor-item">
+                {{ button.label }}
+              </div>
+            </template>
+          </draggable>
+        </div>
+      </template>
     </div>
     <!-- 中间控件编辑区 -->
     <div class="epe-form-editor-content">
@@ -186,16 +222,25 @@ defineExpose({
     <!-- 右侧配置项编辑区 -->
     <div class="epe-form-editor-r-side">
       <!-- 动态 type 插槽，用户可以通过不同 name: FormItemType 的插槽名来自定义编辑区 -->
-      <slot
-        v-if="current"
-        :name="current.type"
-        v-bind="{ current, setCurrent }"
-      >
-        <EpeFormEditorDefaultEditPanel
-          :current="current"
-          :setCurrent="setCurrent"
-        />
-      </slot>
+      <div class="epe-form-editor-r-side-inner">
+        <slot
+          v-if="current"
+          :name="current.type"
+          v-bind="{ current, setCurrent }"
+        >
+          <div
+            v-if="current.type === 'biz-placeholder'"
+            class="epe-form-editor-biz-edit-panel-tip"
+          >
+            业务型表单控件不支持属性编辑
+          </div>
+          <EpeFormEditorDefaultEditPanel
+            v-else
+            :current="current"
+            :setCurrent="setCurrent"
+          />
+        </slot>
+      </div>
     </div>
   </div>
 </template>
@@ -271,6 +316,7 @@ defineExpose({
   padding: 10px 0;
   margin: 6px 0;
   text-align: center;
+  font-size: 14px;
   border-radius: 4px;
   border: 2px dotted rgb(13, 131, 241);
   background-color: rgba(13, 131, 241, 0.3);
@@ -282,4 +328,11 @@ defineExpose({
 /* .epe-form-editor-item-ghost {
   flex: 0 0 100%;
 } */
+.epe-form-editor-r-side-inner {
+  margin: 16px auto;
+}
+.epe-form-editor-biz-edit-panel-tip {
+  font-size: 14px;
+  color: #444;
+}
 </style>

@@ -1,13 +1,12 @@
 {
   "name": "@cphayim/vant-enhance",
-  "version": "0.1.21",
+  "version": "0.2.22",
   "description": "vant components enhanced",
   "keywords": [],
   "author": "Cphayim <i@cphayim.me>",
   "license": "ISC",
   "main": "./dist/vant-enhance.cjs.js",
   "module": "./dist/vant-enhance.es.mjs",
-  "browser": "./dist/vant-enhance.umd.js",
   "types": "./dist/vant-enhance.d.ts",
   "exports": {
     ".": {

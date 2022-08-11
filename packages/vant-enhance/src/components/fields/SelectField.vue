@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watchEffect } from 'vue'
 
-import { isNone } from '../../../../shared'
+import { isNone } from '@/shared/index'
 import type { FieldEmits } from './types'
 import type { FieldProps, FieldOption } from '@/shared/types'
 

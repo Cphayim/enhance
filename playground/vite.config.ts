@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, PluginOption } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import {
@@ -19,7 +19,7 @@ export default defineConfig({
     dedupe: ['vue', 'vant'],
   },
   plugins: [
-    ...baseConfig.plugins,
+    ...(baseConfig.plugins as PluginOption[]),
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
       resolvers: [ElementPlusResolver()],

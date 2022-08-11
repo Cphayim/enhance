@@ -21,21 +21,15 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'VantEnhance',
-      formats: ['es', 'cjs', 'umd'],
+      formats: ['es', 'cjs'],
       fileName: (format) => {
-        return `${libName}.${
-          format === 'es' ? 'es.mjs' : format === 'cjs' ? 'cjs.js' : 'umd.js'
-        }`
+        return `${libName}.${format === 'es' ? 'es.mjs' : 'cjs.js'}`
       },
     },
     rollupOptions: {
-      external: ['vue', 'vant'],
+      external: ['vue', 'vant', /^vant\/es/],
       output: {
         exports: 'named',
-        globals: {
-          vue: 'Vue',
-          vant: 'vant',
-        },
         assetFileNames: (assetInfo) => {
           if (assetInfo.name === 'style.css') {
             return `${libName}.css`

@@ -8,15 +8,11 @@ import { computed, ref } from 'vue'
 import draggable from 'vuedraggable/src/vuedraggable'
 
 import { randomStr } from '@/shared/index'
+import { BizFeatureOptions } from '@/shared/biz-field'
 
 import EpeEditableForm from './EditableForm.vue'
 import EpeFormEditorDefaultEditPanel from './FormEditorDefaultEditPanel.vue'
-import {
-  BizFeatureOptions,
-  FormEditorFeatures,
-  FormEditorProps,
-  FormItemProps,
-} from './types'
+import { FormEditorFeatures, FormEditorProps, FormItemProps } from './types'
 import {
   transformBizPlaceHolderToReal,
   transformBizRealToPlaceHolder,

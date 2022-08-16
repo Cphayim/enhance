@@ -3,7 +3,7 @@ import { type Ref } from 'vue'
 
 import { useVModel } from '@vueuse/core'
 import type { FieldEmits } from './types'
-import type { FieldProps } from '@/shared/types'
+import type { FieldProps } from '@/shared/field'
 
 defineOptions({ name: 'VeInputField' })
 

@@ -4,7 +4,7 @@
   "keywords": [],
   "license": "ISC",
   "author": "Cphayim <i@cphayim.me>",
-  "version": "0.2.22",
+  "version": "0.2.24",
   "main": "./dist/element-plus-enhance.cjs.js",
   "module": "./dist/element-plus-enhance.es.mjs",
   "types": "./dist/element-plus-enhance.d.ts",

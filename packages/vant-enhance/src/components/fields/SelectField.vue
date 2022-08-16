@@ -3,7 +3,7 @@ import { ref, computed, watchEffect } from 'vue'
 
 import { isNone } from '@/shared/index'
 import type { FieldEmits } from './types'
-import type { FieldProps, FieldOption } from '@/shared/types'
+import type { FieldProps, FieldOption } from '@/shared/field'
 
 defineOptions({ name: 'VeSelectField' })
 

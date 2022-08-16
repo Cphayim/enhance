@@ -8,7 +8,7 @@ import { computed, ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 
 import { randomStr } from '@/shared/index'
-import type { FieldProps, FieldUploadFile } from '@/shared/types'
+import type { FieldProps, FieldUploadFile } from '@/shared/field'
 import type { FieldEmits } from './types'
 import { ElMessage, UploadProps, UploadRequestOptions } from 'element-plus'
 

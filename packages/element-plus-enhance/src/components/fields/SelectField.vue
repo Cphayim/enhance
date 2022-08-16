@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useVModel } from '@vueuse/core'
 
-import type { FieldProps } from '@/shared/types'
+import type { FieldProps } from '@/shared/field'
 import type { FieldEmits } from './types'
 
 defineOptions({ name: 'EpeSelectField' })

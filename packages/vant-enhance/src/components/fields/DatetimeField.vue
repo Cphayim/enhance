@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { ref, computed } from 'vue'
 
 import type { FieldEmits } from './types'
-import type { FieldProps } from '@/shared/types'
+import type { FieldProps } from '@/shared/field'
 
 defineOptions({ name: 'VeDatetimeField' })
 

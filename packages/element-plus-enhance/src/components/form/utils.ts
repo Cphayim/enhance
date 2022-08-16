@@ -1,5 +1,6 @@
+import { BizFeatureOptions } from '@/shared/biz-field'
 import { randomStr } from '@/shared/index'
-import { BizFeatureOptions, FormItemProps } from '.'
+import { FormItemProps } from '.'
 
 /**
  * 将 items 中所有 biz 配置项通过 bizFeatures 中对应的转换器转为 biz-placeholder 配置项

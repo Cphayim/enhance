@@ -107,8 +107,17 @@ const { formData, formItems, formRef } = useForm(
       label: '照片',
       type: 'upload',
       name: 'photos',
+      uploadType: 'image',
       uploadLimit: 3,
       uploadTips: '只能上传 3 张图片\n图片文件大小不能超过 300kb',
+    },
+    {
+      label: '文件',
+      type: 'upload',
+      name: 'file',
+      uploadLimit: 1,
+      uploadType: 'file',
+      uploadTips: '只能上传 1 个文件',
     },
   ],
   {
@@ -144,7 +153,7 @@ const handleSubmit = async () => {
 <template>
   <div class="f">
     <div class="pc">
-      <el-card style="height: 700px">
+      <el-card class="card">
         <EpeForm
           ref="formRef"
           :items="formItems"
@@ -173,6 +182,10 @@ const handleSubmit = async () => {
 .pc {
   flex: 1;
   margin-right: 20px;
+}
+.card {
+  height: 700px;
+  overflow: auto;
 }
 .mobile {
   overflow: auto;

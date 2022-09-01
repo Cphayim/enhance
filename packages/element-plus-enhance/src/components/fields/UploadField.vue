@@ -5,7 +5,7 @@
 -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Upload } from '@element-plus/icons-vue'
 
 import { randomStr } from '@/shared/index'
 import type { FieldProps, FieldUploadFile } from '@/shared/field'
@@ -117,19 +117,27 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
     <el-upload
       ref="uploadRef"
       action="/"
-      accept="image/*"
+      :accept="props.uploadType === 'image' ? 'image/*' : '*'"
       :file-list="fileList"
       :before-upload="uploadValidateWrap"
       :http-request="uploadSendWrap"
       :limit="props.uploadLimit"
       :on-remove="handleRemove"
-      :on-preview="handlePreview"
-      list-type="picture-card"
+      :list-type="props.uploadType === 'image' ? 'picture-card' : 'text'"
+      :on-preview="props.uploadType === 'image' ? handlePreview : undefined"
       :on-exceed="handleExceed"
       :disabled="props.disabled"
       :readonly="props.readonly"
     >
-      <el-icon><Plus /></el-icon>
+      <el-icon v-if="props.uploadType === 'image'"><Plus /></el-icon>
+      <el-button
+        v-else
+        type="primary"
+        :color="props.uploadButtonColor"
+        :icon="Upload"
+      >
+        {{ props.uploadButtonText || '上传文件' }}
+      </el-button>
 
       <template #tip>
         <pre class="el-upload__tip">{{ props.uploadTips }}</pre>
@@ -151,6 +159,9 @@ const handlePreview: UploadProps['onPreview'] = (file) => {
   transition: none;
 }
 .epe-upload .el-icon--close-tip {
-  display: none;
+  display: none !important;
+}
+.el-upload-list {
+  min-width: 300px;
 }
 </style>

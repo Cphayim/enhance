@@ -122,6 +122,18 @@ export type FieldProps<F = string, E = any> = {
 
   // UploadField
   /**
+   * 上传类型
+   */
+  uploadType?: 'image' | 'file'
+  /**
+   * 上传按钮文字
+   */
+  uploadButtonText?: string
+  /**
+   * 上传按钮颜色
+   */
+  uploadButtonColor?: string
+  /**
    * 上传器选项
    * 默认值: 'object'
    *

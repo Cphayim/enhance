@@ -78,7 +78,7 @@ const handleFieldClick = () => {
       :modelValue="_datetimeText"
       :disabled="disabled"
       :placeholder="placeholder || '请选择'"
-      :rules="rules"
+      :rules="(rules as any)"
       readonly
       :is-link="!readonly"
       :input-align="align"

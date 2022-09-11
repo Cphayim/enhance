@@ -35,7 +35,7 @@ const handleFieldClick = () => {
       :disabled="disabled"
       :placeholder="placeholder || '请输入'"
       :is-link="isLink"
-      :rules="rules"
+      :rules="(rules as any)"
       :input-align="align"
       :type="inputType"
       :rows="inputRows"

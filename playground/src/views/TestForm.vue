@@ -148,6 +148,10 @@ const handleSubmit = async () => {
     console.error(error)
   }
 }
+
+const handleClearValidate = () => {
+  formRef.value?.clearValidate()
+}
 </script>
 
 <template>
@@ -163,6 +167,9 @@ const handleSubmit = async () => {
         <div class="flex justify-center">
           <el-button @click="handleSubmit" type="primary" size="large">
             提交
+          </el-button>
+          <el-button @click="handleClearValidate" type="info" size="large">
+            清除校验
           </el-button>
         </div>
       </el-card>

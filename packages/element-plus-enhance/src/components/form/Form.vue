@@ -44,9 +44,20 @@ const validate = async () => {
   })
 }
 
+const clearValidate = (names?: string | string[]) => {
+  if (!formRef.value) return
+  // @enhance: 当没有传递 names 时，清除所有验证结果
+  if (!names) {
+    names = props.items.map((item) => item.name)
+  }
+  formRef.value!.clearValidate(names)
+}
+
 const getValues = () => props.data
+
 defineExpose({
   validate,
+  clearValidate,
   getValues,
 })
 

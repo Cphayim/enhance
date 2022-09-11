@@ -27,10 +27,16 @@ const validate = async (name?: string | string[]) => {
   return formRef.value.validate(name)
 }
 
+const clearValidate = (names: string | string[]) => {
+  if (!formRef.value) return
+  formRef.value!.resetValidation(names)
+}
+
 const getValues = () => props.data
 
 defineExpose({
   validate,
+  clearValidate,
   getValues,
 })
 </script>

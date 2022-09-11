@@ -222,7 +222,7 @@ export type FieldRule = {
    * 注意，如果传递的是字符串
    * /\d+/ 对应为 '\\d+'
    */
-  regex?: RegExp | string
+  pattern?: RegExp | string
   /**
    * 验证失败的错误消息
    */

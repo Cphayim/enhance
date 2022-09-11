@@ -38,7 +38,7 @@ const rulesComp = computed(() => {
     { required: required.value, message: '必填项不能为空' },
   ]
   if (regStr.value) {
-    rules.push({ regex: regStr.value, message: regTip.value || '校验失败' })
+    rules.push({ pattern: regStr.value, message: regTip.value || '校验失败' })
   }
   return rules
 })

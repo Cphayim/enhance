@@ -48,9 +48,8 @@ const edit = useAttrs() as { editMode: boolean; editing: boolean }
     <el-form-item :label="field.label" :prop="field.name" :rules="field.rules">
       <slot v-bind="field" :value="_value">
         <div v-if="props.type === 'biz-placeholder'">
-          {{ ($attrs.extra as any)?.bizLabel || '未知'
-
-          }}（业务组件将在使用时显示）
+          <span>{{ ($attrs.extra as any)?.bizLabel || '未知'}}</span>
+          <span>（业务组件将在使用时显示）</span>
         </div>
         <component v-else :is="comp" v-bind="$attrs" v-model:value="_value" />
       </slot>

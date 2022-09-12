@@ -18,7 +18,16 @@ export function useForm<
   const formData = ref(deepClone(originData))
   // 表单配置项 :items, 和 defaultProps 合并
   const formItems = ref(
-    items.map((item) => ({ ...options.defaultProps, ...item })),
+    items.map((item) => {
+      const merged = { ...options.defaultProps, ...item }
+      if (merged.rules) {
+        merged.rules = merged.rules.map((rule) => ({
+          ...rule,
+          trigger: 'blur',
+        }))
+      }
+      return merged
+    }),
   )
 
   const map = computed(() => {

@@ -1,8 +1,8 @@
 {
-  "name": "@cphayim/enhance-shared",
+  "name": "@cphayim/enhance-protocols",
   "version": "0.1.0",
   "author": "Cphayim <i@cphayim.me>",
-  "description": "Shared utils",
+  "description": "Provides the interface definition and validation required by the upper package",
   "license": "ISC",
   "type": "module",
   "exports": {
@@ -14,6 +14,9 @@
   },
   "main": "dist/index.cjs",
   "types": "dist/index.d.ts",
+  "dependencies": {
+    "@cphayim/enhance-shared": "workspace:*"
+  },
   "scripts": {
     "dev": "vite build --mode=development --watch",
     "build": "vite build"
@@ -21,7 +24,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Cphayim/enhance.git",
-    "directory": "packages/shared"
+    "directory": "packages/protocols"
   },
   "bugs": {
     "url": "https://github.com/Cphayim/enhance/issues"

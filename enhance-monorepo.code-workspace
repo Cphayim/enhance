@@ -1,27 +1,9 @@
 {
   "folders": [
     {
-      "name": "✨ @cphayim/enhance-monorepo",
+      "name": "✨ enhance-monorepo",
       "path": "."
-    },
-    {
-      "name": "📦 @cphayim/shared",
-      "path": "packages/shared"
-    },
-    {
-      "name": "📦 @cphayim/element-plus-enhance",
-      "path": "packages/element-plus-enhance"
-    },
-    {
-      "name": "📦 @cphayim/vant-enhance",
-      "path": "packages/vant-enhance"
-    },
-    {
-      "name": "playground",
-      "path": "playground"
     }
   ],
-  "settings": {
-    "cSpell.words": ["vuedraggable"]
-  }
+  "settings": {}
 }

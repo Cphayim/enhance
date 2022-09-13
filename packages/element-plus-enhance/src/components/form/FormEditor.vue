@@ -90,6 +90,7 @@ const genDefaultItemMap: Record<string, (...args: any[]) => FormItemProps> = {
     label: '图片上传',
     name: `image_${randomStr(6)}`,
     uploadLimit: 3,
+    uploadType: 'image',
     uploadTips: '一些提示文案，比如上传的内容要求',
   }),
   // 业务型

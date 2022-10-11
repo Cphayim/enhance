@@ -4,6 +4,7 @@ import { ref, computed, watchEffect } from 'vue'
 import { isNone } from '@/shared/index'
 import type { FieldEmits } from './types'
 import type { FieldProps, FieldOption } from '@/shared/field'
+import { normalizeRules } from '../../utils'
 
 defineOptions({ name: 'VeSelectField' })
 
@@ -88,6 +89,8 @@ const handleFieldClick = () => {
   emit('click')
   showPicker.value = true
 }
+
+const transformedRules = computed(() => normalizeRules(props.rules))
 </script>
 
 <template>
@@ -99,7 +102,7 @@ const handleFieldClick = () => {
       :modelValue="_selectLabel"
       :disabled="disabled"
       :placeholder="placeholder || '请选择'"
-      :rules="(rules as any)"
+      :rules="(transformedRules as any)"
       readonly
       :is-link="!readonly"
       :input-align="align"

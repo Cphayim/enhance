@@ -7,7 +7,7 @@ export function isNone(value: unknown): value is undefined | null {
 
 export function randomStr(length: number) {
   length = length || 32
-  let t = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678',
+  let t = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz',
     a = t.length,
     n = ''
   for (let i = 0; i < length; i++) n += t.charAt(Math.floor(Math.random() * a))

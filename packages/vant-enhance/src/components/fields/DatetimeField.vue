@@ -4,6 +4,7 @@ import { ref, computed } from 'vue'
 
 import type { FieldEmits } from './types'
 import type { FieldProps } from '@/shared/field'
+import { normalizeRules } from '../../utils'
 
 defineOptions({ name: 'VeDatetimeField' })
 
@@ -67,6 +68,8 @@ const handleFieldClick = () => {
   emit('click')
   showPicker.value = true
 }
+
+const transformedRules = computed(() => normalizeRules(props.rules))
 </script>
 
 <template>
@@ -78,7 +81,7 @@ const handleFieldClick = () => {
       :modelValue="_datetimeText"
       :disabled="disabled"
       :placeholder="placeholder || '请选择'"
-      :rules="(rules as any)"
+      :rules="(transformedRules as any)"
       readonly
       :is-link="!readonly"
       :input-align="align"

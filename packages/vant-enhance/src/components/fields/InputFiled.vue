@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { type Ref } from 'vue'
+import { computed, type Ref } from 'vue'
 
 import { useVModel } from '@vueuse/core'
 import type { FieldEmits } from './types'
 import type { FieldProps } from '@/shared/field'
+import { normalizeRules } from '../../utils'
 
 defineOptions({ name: 'VeInputField' })
 
@@ -23,6 +24,8 @@ const handleFieldClick = () => {
   if (props.readonly || props.disabled) return
   emit('click')
 }
+
+const transformedRules = computed(() => normalizeRules(props.rules))
 </script>
 
 <template>
@@ -35,7 +38,7 @@ const handleFieldClick = () => {
       :disabled="disabled"
       :placeholder="placeholder || '请输入'"
       :is-link="isLink"
-      :rules="(rules as any)"
+      :rules="(transformedRules as any)"
       :input-align="align"
       :type="inputType"
       :rows="inputRows"
